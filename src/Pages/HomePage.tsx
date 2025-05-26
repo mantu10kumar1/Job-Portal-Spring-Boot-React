@@ -1,7 +1,11 @@
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Companies from "../LandingPage/Companies";
 import DreamJob from "../LandingPage/DreamJob";
 import JobCategory from "../LandingPage/JobCategory";
+import Subscribe from "../LandingPage/Subscribe";
+import TestiMonials from "../LandingPage/TestiMonials";
+import Working from "../LandingPage/Working";
 
 const HomePage = () =>{
     return(
@@ -10,6 +14,10 @@ const HomePage = () =>{
             <DreamJob/>
             <Companies/>
             <JobCategory/>
+            <Working/>
+            <TestiMonials/>
+            <Subscribe/>
+            <Footer/>
         </div>
     )
 }
