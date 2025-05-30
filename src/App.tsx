@@ -4,6 +4,15 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css'
 import HomePage from './Pages/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import FindJobs from './Pages/FindJobs';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
+
+/*
+In this project I have used to more popular libraries thats linke age
+1. Mantine - For UI components  =>  https://v7.mantine.dev/
+2. Tabler icon - For icons      =>  https://tabler.io/icons
+*/
 
 function App() {
   const theme = createTheme({
@@ -38,11 +47,14 @@ function App() {
     },
   })
   return (
-    <MantineProvider theme={theme}>
+    <MantineProvider defaultColorScheme='dark' theme={theme}>
       <BrowserRouter>
+      <Header/>
       <Routes>
+        <Route path='/find-jobs'  element = {<FindJobs/>} />
         <Route path='*' element={<HomePage/>} />
       </Routes>
+      <Footer/>
       </BrowserRouter>
 
     </MantineProvider>
