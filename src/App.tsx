@@ -4,9 +4,11 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css'
 import HomePage from './Pages/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import FindJobs from './Pages/FindJobs';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
+import FindJobsPage from './Pages/FindJobsPage';
+import FindTalentPage from './Pages/FindTalentPage';
+import TalentProfilePage from './Pages/TalentProfilePage';
 
 /*
 In this project I have used to more popular libraries thats linke age
@@ -16,6 +18,9 @@ In this project I have used to more popular libraries thats linke age
 
 function App() {
   const theme = createTheme({
+    fontFamily: "poppines , sans-serif",
+    primaryColor: "brightSun",
+    primaryShade:4,
     colors: {
       'brightSun': [
         '#fffbeb',
@@ -45,16 +50,21 @@ function App() {
       ]
 
     },
+
   })
   return (
     <MantineProvider defaultColorScheme='dark' theme={theme}>
       <BrowserRouter>
-      <Header/>
-      <Routes>
-        <Route path='/find-jobs'  element = {<FindJobs/>} />
-        <Route path='*' element={<HomePage/>} />
-      </Routes>
-      <Footer/>
+        <Header />
+        <Routes>
+          <Route path='/find-jobs' element={<FindJobsPage />} />
+          <Route path='/find-talent' element={<FindTalentPage />} />
+          <Route path='/post-job' element={""} />
+          <Route path='/talent-profile' element={<TalentProfilePage />} />
+
+          <Route path='*' element={<HomePage />} />
+        </Routes>
+        <Footer />
       </BrowserRouter>
 
     </MantineProvider>
