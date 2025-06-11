@@ -14,7 +14,7 @@ function SearchBar() {
             <Input  className='[&_input]:!placeholder-mine-shaft-300 ' variant="unstyled" placeholder="Talent Name" />
 
         </div>
-      {
+      {/* {
         searchFields.map((item, index) => <> 
           <div key={index}  className='w-1/5'>
             <MultiInput {...item} />
@@ -22,6 +22,18 @@ function SearchBar() {
           <Divider mr="xs" size="sm" orientation="vertical" />
         </>
         )
+      } */}
+
+        {
+        searchFields.map((item, index) => (
+          // Use explicit React.Fragment and place the key prop on it
+          <React.Fragment key={index}>
+            <div className='w-1/5'>
+              <MultiInput {...item} />
+            </div>
+            <Divider mr="xs" size="sm" orientation="vertical" />
+          </React.Fragment>
+        ))
       }
       <div className='w-1/5 [&_.mantine-Slider-label]:!translate-y-10 '>
       <div className='flex text-sm justify-between '>
@@ -40,3 +52,5 @@ function SearchBar() {
 }
 
 export default SearchBar
+
+
