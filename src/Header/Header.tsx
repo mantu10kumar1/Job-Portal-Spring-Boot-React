@@ -2,6 +2,7 @@ import { Avatar, Indicator } from "@mantine/core";
 import { IconAnchor, IconBell, IconSettings } from "@tabler/icons-react";
 import NavLinks from "./NavLinks";
 import { useLocation } from "react-router-dom";
+import ProfileMenu from "./ProfileMenu";
 
 const Header = () => {
     const location = useLocation();
@@ -16,10 +17,8 @@ const Header = () => {
         {/* https://uicolors.app/generate/80becd this is best for the choosing ui colors */}
         <div className="flex gap-3 items-center">
 
-            <div className="flex gap-3 items-center">
-                <div>Marshal  </div>
-                <Avatar src="avatar.png" alt="it's me" />
-            </div>
+           
+            <ProfileMenu/>
             <div className="bg-mine-shaft-900 p-1.5 rounded-full  " >
                 <IconSettings stroke={1.5} />
             </div>

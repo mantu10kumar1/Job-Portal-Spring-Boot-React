@@ -18,6 +18,7 @@ import CompanyPage from './Pages/CompanyPage';
 import PostedJobPage from './Pages/PostedJobPage';
 import JobHistoryPage from './Pages/JobHistoryPage';
 import SignUpPage from './Pages/SignUpPage';
+import ProfilePage from './Pages/ProfilePage';
 
 /*
 In this project I have used to more popular libraries thats linke age
@@ -81,6 +82,7 @@ function App() {
           <Route path='/talent-profile' element={<TalentProfilePage />} />
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/login' element={<SignUpPage />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='*' element={<HomePage />} />
         </Routes>
         <Footer />
