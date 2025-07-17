@@ -6,6 +6,8 @@ const SelectInput = (props: any) => {
     console.log("Props data in selectInput : ", props.options)
     useEffect(() => {
         setData(props.options);
+        setValue(props.value);
+        setSearch(props.value);
     }, []);
     const combobox = useCombobox({
         onDropdownClose: () => combobox.resetSelectedOption(),
@@ -44,7 +46,7 @@ const SelectInput = (props: any) => {
         >
             <Combobox.Target>
                 <InputBase withAsterisk
-                    className='[&_input]: font-medium'
+                    leftSection={<props.leftSection stroke={1.5}  />}
                     label={props.label}
                     rightSection={<Combobox.Chevron />}
                     value={search}
