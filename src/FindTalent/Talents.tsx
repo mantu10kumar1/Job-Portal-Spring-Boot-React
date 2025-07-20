@@ -15,6 +15,7 @@ function Talents() {
             <div className='mt-10 flex flex-wrap gap-5 justify-evenly '>
                 {
                     talents.map((talent , index) =>  <TalentCard key={index} {...talent} />)
+                    
                 }
             </div>
 
