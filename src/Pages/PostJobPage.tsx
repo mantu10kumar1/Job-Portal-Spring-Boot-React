@@ -1,5 +1,5 @@
 
-import PostJob from "../PostJob/PostJob";
+import PostJob from "../Components/PostJob/PostJob";
 
 function PostJobPage() {
   return (

@@ -6,8 +6,7 @@ import '@mantine/tiptap/styles.css';
 import '@mantine/dates/styles.css';
 import HomePage from './Pages/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Header from './Header/Header';
-import Footer from './Footer/Footer';
+
 import FindJobsPage from './Pages/FindJobsPage';
 import FindTalentPage from './Pages/FindTalentPage';
 import TalentProfilePage from './Pages/TalentProfilePage';
@@ -19,6 +18,8 @@ import PostedJobPage from './Pages/PostedJobPage';
 import JobHistoryPage from './Pages/JobHistoryPage';
 import SignUpPage from './Pages/SignUpPage';
 import ProfilePage from './Pages/ProfilePage';
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 
 /*
 In this project I have used to more popular libraries thats linke age
