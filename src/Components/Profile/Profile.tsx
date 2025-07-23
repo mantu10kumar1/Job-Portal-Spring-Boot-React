@@ -9,11 +9,11 @@ import {
 import ExpCard from "./ExpCard";
 import CertiCard from "./CertiCard";
 import { useState } from "react";
-import SelectInput from "./SelectInput";
 import fields from "../../Data/Profile";
 import { profile } from "../../Data/TalentData";
 import ExpInput from "./ExpInput";
 import CertiInput from "./CertiInput";
+import SelectInput from "./SelectInput";
 
 
 function Profile() {
@@ -51,6 +51,7 @@ function Profile() {
         {edit[0] ? (
           <>
             {" "}
+          
             <div className="flex gap-10 [&>*]:w-1/2 ">
               <SelectInput {...select[0]} />
               <SelectInput {...select[1]} />

@@ -1,4 +1,4 @@
-import { Anchor, Button, Checkbox, PasswordInput, Radio, rem, TextInput } from '@mantine/core'
+import { Anchor, Button, Checkbox, Group, PasswordInput, Radio, rem, TextInput } from '@mantine/core'
 import { IconAt, IconLock } from '@tabler/icons-react'
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
@@ -23,10 +23,12 @@ function SignUp() {
         description="This is anonymous"
         withAsterisk
       >
-        <Radio value="react" label="React" />
-        <Radio value="svelte" label="Svelte" />
-        <Radio value="ng" label="Angular" />
-        <Radio value="vue" label="Vue" />
+        <Group mt="xs">
+          <Radio value="react" label="React" />
+          <Radio value="svelte" label="Svelte" />
+          <Radio value="ng" label="Angular" />
+          <Radio value="vue" label="Vue" />
+        </Group>
       </Radio.Group>
 
       <Checkbox autoContrast label={<>I accept{' '} <Anchor>terms & conditions</Anchor> </>} />
