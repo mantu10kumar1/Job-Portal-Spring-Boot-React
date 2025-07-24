@@ -9,11 +9,11 @@ const registerUser = async (user:any) => {
     });
 }
 
-const LoginUser = async (login:any) => {
+const loginUser = async (login:any) => {
     return axios.post(`${base_url}login` , login)
     .then(res => res.data)
     .catch(error =>{
         throw error;
     });
 }
-export {registerUser , LoginUser};
+export {registerUser , loginUser};
