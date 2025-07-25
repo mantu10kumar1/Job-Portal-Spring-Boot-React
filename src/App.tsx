@@ -4,6 +4,7 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css'
 import '@mantine/tiptap/styles.css';
 import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
 import HomePage from './Pages/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ import SignUpPage from './Pages/SignUpPage';
 import ProfilePage from './Pages/ProfilePage';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
+import { Notifications } from '@mantine/notifications';
 
 /*
 In this project I have used to more popular libraries thats linke age
@@ -67,6 +69,7 @@ function App() {
   })
   return (
     <MantineProvider defaultColorScheme='dark' theme={theme}>
+    <Notifications position="top-center" zIndex={1000} />
       <BrowserRouter>
       <div className='relative'> 
         <Header />

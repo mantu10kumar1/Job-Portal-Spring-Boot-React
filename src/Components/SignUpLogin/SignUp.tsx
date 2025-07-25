@@ -1,9 +1,10 @@
 import { Anchor, Button, Checkbox, Group, PasswordInput, Radio, rem, TextInput } from '@mantine/core'
-import { IconAt, IconLock } from '@tabler/icons-react'
+import { IconAt, IconCheck, IconLock, IconX } from '@tabler/icons-react'
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { registerUser } from '../../Services/UserService';
 import { signupValidation } from '../../Services/FormValidation';
+import { notifications } from '@mantine/notifications';
 
 const form = {
   name: '',
@@ -14,8 +15,9 @@ const form = {
 }
 
 function SignUp() {
-  const [data, setData] = useState(form);
-  const [formError, setFormError] = useState(form);
+  const [data, setData] = useState<{ [key: string]: string }>(form);
+  const [formError, setFormError] = useState<{ [key: string]: string }>(form);
+  const navigate = useNavigate();
   // Handler for form input changes
   const handleChange = (event: any) => {
     console.log("Event Target : ", event);
@@ -41,13 +43,49 @@ function SignUp() {
 
   }
   const handleSubmit = () => {
-    console.log("Data in SignUp : ", data);
-    registerUser(data).then((res) => {
-      console.log(res);
-    }).then((res) => {
-      console.log(res);
-    })
-      .catch((err) => console.log("Error occure while register : ", err?.response?.data));
+    let valid = true, newFormError: { [key: string]: string } = {};
+    for (let key in data) {
+      if (key === 'accountType') continue;
+      if (key !== 'confirmPassword') newFormError[key] = signupValidation(key, data[key]);
+      else if (data[key] !== data["password"]) newFormError[key] = "Password and Confirm Password must be same";
+      if (newFormError[key]) valid = false;
+    }
+    setFormError(newFormError);
+    console.log("Valid : ", valid);
+
+    if (valid === true) {
+
+      console.log("Data in SignUp happend successfull : ", data);
+      registerUser(data).then((res) => {
+        console.log("This is the response data of the after registration : " , res);
+        setData(form);
+        notifications.show({
+          title: 'Registration Successful',
+          message: 'Redirecting to login page...🌟',
+          withCloseButton: true,
+          icon: <IconCheck style={{ width: "90%", height: "90%" }} />,
+          color: 'teal',
+          withBorder: true,
+          className: "!border-green-500"
+        })
+        setTimeout(() => {
+          navigate('/login');
+        }, 4000);
+      })
+        .catch((err) =>{ 
+          console.log("Error occure while register : ", err?.response?.data)
+          notifications.show({
+            title: 'Registration Failed',
+            message: err.response.data.errorMessage,
+            withCloseButton: true,
+            icon: <IconX style={{ width: "90%", height: "90%" }} />,
+            color: 'red',
+            autoClose: 5000,
+            withBorder: true,
+            className: "!border-red-500"
+          })
+        });
+    }
 
   }
 
@@ -78,7 +116,8 @@ function SignUp() {
 
       <Checkbox autoContrast label={<>I accept{' '} <Anchor>terms & conditions</Anchor> </>} />
       <Button onClick={handleSubmit} autoContrast variant='filled' >Sign up</Button>
-      <div className='mx-auto'>Have an account? <Link to="/login" className='text-bright-sun-400 hover:underline '>Login </Link> </div>
+      <div className='mx-auto'>Have an account? <span onClick={() =>{navigate("/login");setFormError(form); setData(form)}}
+       className='text-bright-sun-400 hover:underline cursor-pointer '>Login </span> </div>
     </div>
   )
 }
