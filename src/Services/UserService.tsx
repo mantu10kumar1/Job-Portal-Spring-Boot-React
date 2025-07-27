@@ -16,4 +16,31 @@ const loginUser = async (login:any) => {
         throw error;
     });
 }
-export {registerUser , loginUser};
+
+const sendOtp = (email : string) =>{
+    return axios.post(`${base_url}sendOtp/${email}`)
+    .then(res => res.data)
+    .catch(error =>{
+        throw error;
+    });
+}
+
+// Function to verify the OTP
+const verifyOtp = (email:any , otp:any) =>{
+    return axios.get(`${base_url}verifyOtp/${email}/${otp}`)
+    .then(res => res.data)  
+    .catch(error =>{
+        throw error;
+    });
+}
+
+// Function to reset the password
+const changePassword = (email:any , password:string) =>{
+    return axios.post(`${base_url}changePass`, { email, password})
+    .then(res => res.data)
+    .catch(error =>{
+        throw error;
+    });
+}
+
+export {registerUser , loginUser , sendOtp, verifyOtp, changePassword};

@@ -34,4 +34,6 @@ const loginValidation = (name: string , value: string) =>{
     }
 }
 
+
+
 export {signupValidation, loginValidation};
