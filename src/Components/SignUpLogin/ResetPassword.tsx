@@ -1,41 +1,61 @@
-import { Button, Modal, PinInput, TextInput } from '@mantine/core'
-import { IconAt } from '@tabler/icons-react';
+import { Button, Modal, PasswordInput, PinInput, TextInput } from '@mantine/core'
+import { IconAt, IconLock } from '@tabler/icons-react';
 import React, { useState } from 'react'
-import { sendOtp, verifyOtp } from '../../Services/UserService';
+import { changePassword, sendOtp, verifyOtp } from '../../Services/UserService';
+import { errorNotification, successNotification } from '../../Services/NotificationService';
+import { signupValidation } from '../../Services/FormValidation';
 
 function ResetPassword(props: any) {
     const [email, setEmail] = useState("");
     const [otpSent, setOtpSent] = useState(false);
     const [otpSending, setOtpSending] = useState(false);
+    const [verified, setVerified] = useState(false);
+    const [password , setPassword] = useState("");
+    const [passErr , setPassErr] = useState("");
+    const [resendLoader , setResendLoader] = useState(false);
 
     const handleSendOtp = () => {
         setOtpSending(true);
         sendOtp(email).then((res) => {
             console.log("OTP sent successfully", res);
+            successNotification("OTP Sent Successfully" , "Enter OTP to reset.");
             setOtpSent(true);
             setOtpSending(false);
         }).catch((err) => {
             console.log("Error while sending otp : ", err);
-            setOtpSending(false);
+            errorNotification("Error Sending OTP", err.response.data.errorMessage);
         })
     }
 
     const handleVerifyOTP = (otp: string) => {
         verifyOtp(email , otp).then((res) =>{
             console.log("OTP verified successfully" , res);
+            successNotification("OTP Verified", "Enter new password.");
+            setVerified(true);
         }).catch((err) => {
             console.log("Error while verifying otp : ", err);
+            errorNotification("OTP Verification Failed", err.response.data.errorMessage);
         })
     }
 
     const resendOtp = () => {
-        // setOtpSent(false);
-        // setEmail("");
+       handleSendOtp();
     }
     const changeEmail = () =>{
         setOtpSent(false);
         // setEmail("");
         // props.close();
+    }
+    const handleResetPassword = () =>{
+        changePassword(email, password).then((res) =>{
+            console.log("Password changed successfully", res);
+            successNotification("Password Changed", "Login with new password.");
+            props.close();
+        }).catch((err) => {
+            console.log("Error while changing password : ", err);
+            errorNotification("Password Reset Failed", err.response.data.errorMessage);
+            setPassErr(err.response.data.errorMessage);
+        });
     }
 
     return (
@@ -48,11 +68,22 @@ function ResetPassword(props: any) {
                         Send</Button>} rightSectionWidth="xl" />
 
                 {otpSent && <PinInput onComplete={handleVerifyOTP} length={6} className='mx-auto' size='md' gap="lg" type="number" />}
-                {otpSent && <div>
-                    <Button fullWidth loading={otpSending}  onClick={resendOtp} color='brightSun.4' autoContrast variant='light' > Resend</Button>
+                {otpSent && !verified && <div className='flex gap-2'>
+                    <Button fullWidth loading={otpSending && !otpSent}  onClick={resendOtp} color='brightSun.4' autoContrast variant='light' >
+                         Resend</Button>
 
                    <Button fullWidth onClick={changeEmail} autoContrast variant='light' > Change Email</Button>
                 </div>}
+                {verified &&
+                    <PasswordInput value={password} error={passErr} onChange={(e)=>{setPassword(e.target.value) ;
+                         setPassErr(signupValidation("password", e.target.value))}}
+                   
+                     name='password' withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Password" 
+                     placeholder="Password" />
+                }
+                {
+                    verified && <Button onClick={handleResetPassword} autoContrast variant='filled' >Change Password</Button>
+                }
             </div>
         </Modal>
     )
