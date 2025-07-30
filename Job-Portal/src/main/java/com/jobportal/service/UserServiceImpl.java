@@ -2,6 +2,7 @@ package com.jobportal.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -35,11 +36,17 @@ public class UserServiceImpl implements UserService {
 	private JavaMailSender mailSender;
 	
 	@Autowired
+	private ProfileService profileService;
+	
+	@Autowired
 	private OTPRepository otpRepository;
 	
 	// This is the User Register function
 	@Override
 	public UserDTO registerUser(UserDTO userDTO) throws JobPortalException {
+		Optional<User> optional = userRepository.findByEmail(userDTO.getEmail());
+		if(optional.isPresent()) throw new JobPortalException("USER_FOUND");
+		userDTO.setProfileId(profileService.createProfile(userDTO.getEmail()));
 		userDTO.setId(Utilities.getNetSequence("users"));
 		userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 		User user = userDTO.toEntity();

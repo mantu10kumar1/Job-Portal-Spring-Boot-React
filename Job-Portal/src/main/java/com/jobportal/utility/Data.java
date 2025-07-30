@@ -77,7 +77,7 @@ public class Data {
 	            "<body>" +
 	            "    <div class=\"email-container\">" +
 	            "        <div class=\"header\">" +
-	            "            <h1>Verification Required</h1>" +
+	            "            <h1>Verification Required  </h1>" + "  "+
 	            "        </div>" +
 	            "        <div class=\"content\">" +
 	            "            <p>Hello, </p>"+ name +
@@ -102,6 +102,6 @@ public class Data {
 	            "</html>";
 
         // Use the replace method to substitute the placeholder with the actual OTP
-        return htmlTemplate.replace("${otp}", otp);
+        return htmlTemplate.replace("  ${otp}", otp);
 	}
 }
