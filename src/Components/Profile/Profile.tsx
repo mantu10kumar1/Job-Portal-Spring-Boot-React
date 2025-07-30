@@ -8,17 +8,21 @@ import {
 } from "@tabler/icons-react";
 import ExpCard from "./ExpCard";
 import CertiCard from "./CertiCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import fields from "../../Data/Profile";
 import { profile } from "../../Data/TalentData";
 import ExpInput from "./ExpInput";
 import CertiInput from "./CertiInput";
 import SelectInput from "./SelectInput";
+import { useSelector } from "react-redux";
+import { getProfile } from "../../Services/ProfileService";
 
 
 function Profile() {
 
   const select = fields;
+  const user = useSelector((state:any)=> state.user);
+  const profile = useSelector((state:any) =>state.profile);
   const [edit, setEdit] = useState([false, false, false, false, false]);
   const [about, setAbout] = useState('As a Software Engineer at Google, I specialize in building scalable and high-performance applications. My expertise lies in integrating front-end and back-end technologies to deliver seamless user experiences. With a strong foundation in React and SpringBoot, and a focus on MongoDB for database solutions, I am passionate about leveraging the latest technologies to solve complex problems and drive innovation. My goal is to create impactful software that enhances productivity and meets user needs effectively.');
   const [skills, setSkills] = useState(["HTML","CSS","JavaScript","React","Angular","Node.js","Python","Java","Ruby","PHP","SQL","MongoDB","PostgreSQL","Git","API Development","Testing and Debugging","Agile Methodologies","DevOps","AWS","Azure","Google Cloud"]);
@@ -30,6 +34,16 @@ function Profile() {
     newEdit[index] = !newEdit[index];
     setEdit(newEdit);
   };
+
+  useEffect(() =>{
+    console.log("Profile is : " , profile);
+    getProfile(user.id).then((data:any) =>{
+      console.log("Profile data : " , data );
+    }).catch((error:any) =>{
+      console.log("Error while getting profile : " , error)
+    })
+  },[])
+
   return (
     <div className=" w-4/5 mx-auto ">
       <div className=" relative ">
@@ -117,7 +131,7 @@ function Profile() {
             <IconDeviceFloppy className=" h-4/5 w-4/5 " />) : (<IconPencil className="h-4/5 w-4/5" />)} </ActionIcon></div> </div>
         <div className="flex flex-col gap-8 ">
           {
-          profile.experience.map((exp,  index) => (
+          profile?.experience?.map((exp:any,  index:number) => (
             <ExpCard key={index} {...exp} edit={edit[3]} />
           ))
           }
@@ -134,7 +148,7 @@ function Profile() {
           <ActionIcon size="lg" variant="subtle" color="brightSun.4" onClick={() => handleEdit(4)} >   {edit[4] ? (
             <IconDeviceFloppy className=" h-4/5 w-4/5 " />) : (<IconPencil className="h-4/5 w-4/5" />)} </ActionIcon></div>  </div>
         <div className="flex flex-col gap-8 ">
-          {profile.certifications.map((certi, index) => 
+          {profile?.certifications?.map((certi:any, index:number) => 
             <CertiCard key={index} edit={edit[4]} {...certi} />
           )}
           {

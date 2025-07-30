@@ -18,7 +18,7 @@ function CertiInput(props: any) {
             </div>
             <div className="flex gap-10 [&>*]:w-1/2 ">
                 <MonthPickerInput minDate={new Date()} label="Issue Date" placeholder="Pick date" withAsterisk value={issueDate}
-                 onChange={(value: string) => setIssueDate(value ? new Date(value) : null)} />
+                 onChange={(value: string | null) => setIssueDate(value ? new Date(value) : null)} />
                 <TextInput label="Certificate ID" withAsterisk placeholder="Enter ID" />
 
             </div>

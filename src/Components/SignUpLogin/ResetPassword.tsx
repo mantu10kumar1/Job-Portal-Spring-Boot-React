@@ -4,23 +4,36 @@ import React, { useState } from 'react'
 import { changePassword, sendOtp, verifyOtp } from '../../Services/UserService';
 import { errorNotification, successNotification } from '../../Services/NotificationService';
 import { signupValidation } from '../../Services/FormValidation';
+import { useInterval } from '@mantine/hooks';
 
 function ResetPassword(props: any) {
     const [email, setEmail] = useState("");
     const [otpSent, setOtpSent] = useState(false);
     const [otpSending, setOtpSending] = useState(false);
     const [verified, setVerified] = useState(false);
-    const [password , setPassword] = useState("");
-    const [passErr , setPassErr] = useState("");
-    const [resendLoader , setResendLoader] = useState(false);
+    const [password, setPassword] = useState("");
+    const [passErr, setPassErr] = useState("");
+    const [resendLoader, setResendLoader] = useState(false);
+    const [seconds, setSeconds] = useState(60);
+
+    const interval = useInterval(() => {
+        if (seconds === 0) {
+            setResendLoader(false);
+            setSeconds(60);
+            interval.stop();
+        } else setSeconds((s) => s - 1)
+    }
+        , 1000);
 
     const handleSendOtp = () => {
         setOtpSending(true);
         sendOtp(email).then((res) => {
             console.log("OTP sent successfully", res);
-            successNotification("OTP Sent Successfully" , "Enter OTP to reset.");
+            successNotification("OTP Sent Successfully", "Enter OTP to reset.");
             setOtpSent(true);
             setOtpSending(false);
+            setResendLoader(true);
+            interval.start();
         }).catch((err) => {
             console.log("Error while sending otp : ", err);
             errorNotification("Error Sending OTP", err.response.data.errorMessage);
@@ -28,8 +41,8 @@ function ResetPassword(props: any) {
     }
 
     const handleVerifyOTP = (otp: string) => {
-        verifyOtp(email , otp).then((res) =>{
-            console.log("OTP verified successfully" , res);
+        verifyOtp(email, otp).then((res) => {
+            console.log("OTP verified successfully", res);
             successNotification("OTP Verified", "Enter new password.");
             setVerified(true);
         }).catch((err) => {
@@ -39,15 +52,18 @@ function ResetPassword(props: any) {
     }
 
     const resendOtp = () => {
-       handleSendOtp();
+        if (resendLoader) return;
+        handleSendOtp();
     }
-    const changeEmail = () =>{
+    const changeEmail = () => {
         setOtpSent(false);
-        // setEmail("");
-        // props.close();
+        setResendLoader(false);
+        setSeconds(60);
+        setVerified(false);
+        interval.stop();
     }
-    const handleResetPassword = () =>{
-        changePassword(email, password).then((res) =>{
+    const handleResetPassword = () => {
+        changePassword(email, password).then((res) => {
             console.log("Password changed successfully", res);
             successNotification("Password Changed", "Login with new password.");
             props.close();
@@ -69,17 +85,19 @@ function ResetPassword(props: any) {
 
                 {otpSent && <PinInput onComplete={handleVerifyOTP} length={6} className='mx-auto' size='md' gap="lg" type="number" />}
                 {otpSent && !verified && <div className='flex gap-2'>
-                    <Button fullWidth loading={otpSending && !otpSent}  onClick={resendOtp} color='brightSun.4' autoContrast variant='light' >
-                         Resend</Button>
+                    <Button fullWidth loading={otpSending && !otpSent} onClick={resendOtp} color='brightSun.4' autoContrast variant='light' >
+                        {resendLoader ? seconds : "Resend"} </Button>
 
-                   <Button fullWidth onClick={changeEmail} autoContrast variant='light' > Change Email</Button>
+                    <Button fullWidth onClick={changeEmail} autoContrast variant='light' > Change Email</Button>
                 </div>}
                 {verified &&
-                    <PasswordInput value={password} error={passErr} onChange={(e)=>{setPassword(e.target.value) ;
-                         setPassErr(signupValidation("password", e.target.value))}}
-                   
-                     name='password' withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Password" 
-                     placeholder="Password" />
+                    <PasswordInput value={password} error={passErr} onChange={(e) => {
+                        setPassword(e.target.value);
+                        setPassErr(signupValidation("password", e.target.value))
+                    }}
+
+                        name='password' withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Password"
+                        placeholder="Password" />
                 }
                 {
                     verified && <Button onClick={handleResetPassword} autoContrast variant='filled' >Change Password</Button>
