@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Certification {
 
 	private String name;
-	private String isuser;
+	private String issuer;
 	private LocalDateTime issueDate;
 	private String certificateId;
 }
