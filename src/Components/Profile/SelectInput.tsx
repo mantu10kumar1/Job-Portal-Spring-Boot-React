@@ -5,7 +5,6 @@ import { Combobox, InputBase, ScrollArea, useCombobox } from '@mantine/core';
 // import { Console } from 'console';
 
 function SelectInput(props: any) {
-    console.log("Props data in selectInput option : ", props.options)
 
     // The useEffect hook now correctly includes 'props.options' and 'props.value'
     // in its dependency array. This ensures that the state variables 'data', 'value',
@@ -17,8 +16,8 @@ function SelectInput(props: any) {
             : [];
         setData(validOptions);
         // Ensure 'value' can be null, but 'search' is always a string
-        setValue(props.value || null);
-        setSearch(props.value || ''); // Ensure search is always a string, defaulting to '' if props.value is null/undefined
+        setValue(props.form.getInputProps(props.name).value || '');
+        setSearch(props.form.getInputProps(props.name).value || ''); // Ensure search is always a string, defaulting to '' if props.value is null/undefined
     }, [props.options, props.value]); // Dependencies added here to resolve the warning
 
     const combobox = useCombobox({
@@ -29,7 +28,6 @@ function SelectInput(props: any) {
     const [value, setValue] = useState<string | null>(null);
     const [search, setSearch] = useState('');
 
-    console.log("Data in selectInput option : ", data);
 
     // Determine if there's an exact match for the search term in the data
     // Added a type check for 'item' to prevent 'toLowerCase' on undefined/null
@@ -41,7 +39,7 @@ function SelectInput(props: any) {
     // Also ensured 'search' is treated as a string before calling toLowerCase()
     const filteredOptions = exactOptionMatch
         ? data
-        : data.filter((item) => typeof item === 'string' && item.toLowerCase().includes(search.toLowerCase().trim()));
+        : data.filter((item) => typeof item === 'string' && item.toLowerCase().includes(search?.toLowerCase().trim()));
 
     // Map the filtered options to Combobox.Option components
     const options = filteredOptions.map((item) => (
@@ -60,19 +58,23 @@ function SelectInput(props: any) {
                     // If '$create' is submitted, add the current search term to data
                     setData((current) => [...current, search]);
                     setValue(search); // Set the value to the newly created item
+                    props.form.setFieldValue(props.name, search)
                 } else {
                     // Otherwise, set the value and search to the selected option
                     setValue(val);
                     setSearch(val);
+                    props.form.setFieldValue(props.name, val)
                 }
                 combobox.closeDropdown(); // Close the dropdown after submission
             }}
         >
             <Combobox.Target>
-                <InputBase withAsterisk
+                <InputBase {...props.form.getInputProps(props.name)}
+                 withAsterisk
                     // leftSection={<props.leftSection stroke={1.5}  />} // Uncomment if left section is needed
                     label={props.label}
                     rightSection={<Combobox.Chevron />} // Chevron icon for the dropdown
+                    leftSection={<props.leftSection stroke={1.5} />}
                     value={search}
                     // Handle input changes: open dropdown, update selected option index, and update search state
                     onChange={(event) => {
@@ -97,7 +99,7 @@ function SelectInput(props: any) {
                     <ScrollArea.Autosize mah={200} type="scroll">
                     {options}
                     {/* Show a "Create" option if there's no exact match and search term is not empty */}
-                    {!exactOptionMatch && search.trim().length > 0 && (
+                    {!exactOptionMatch && search?.trim()?.length > 0 && (
                         <Combobox.Option value="$create">+ Create {search}</Combobox.Option>
                     )}
                     </ScrollArea.Autosize>

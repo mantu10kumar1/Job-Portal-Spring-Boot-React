@@ -6,7 +6,6 @@ import { fields } from '../../Data/PostJob';
 
 function CertiInput(props: any) {
     const select = fields;
-    console.log("Select value in CertiInput : ", {...select[1]});
     const [issueDate, setIssueDate] = useState<Date | null>(new Date());
 
     return (
