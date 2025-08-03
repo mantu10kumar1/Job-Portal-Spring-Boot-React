@@ -1,6 +1,7 @@
 package com.jobportal.dto;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
 
 import com.jobportal.entity.Certification;
@@ -22,6 +23,7 @@ public class ProfileDTO {
 	private String company;
 	private String location;
 	private String about;
+	private String picture;
 	private List<String> skills;
 	private List<Experience> experience;
 	private List<Certification> certification;
@@ -34,6 +36,7 @@ public class ProfileDTO {
 		this.company ,
 		this.location ,
 		this.about ,
+		this.picture !=null? Base64.getDecoder().decode(this.picture):null,
 		this.skills,
 		this.experience ,
 		this.certification);

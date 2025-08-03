@@ -1,5 +1,6 @@
 package com.jobportal.entity;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -23,6 +24,7 @@ public class Profile {
 	private String company;
 	private String location;
 	private String about;
+	private byte[] picture;
 	private List<String> skills;
 	private List<Experience> experience;
 	private List<Certification> certification;
@@ -35,6 +37,7 @@ public class Profile {
 		this.company ,
 		this.location ,
 		this.about ,
+		this.picture != null?Base64.getEncoder().encodeToString(this.picture):null,
 		this.skills,
 		this.experience ,
 		this.certification);
