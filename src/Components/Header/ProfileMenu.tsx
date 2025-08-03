@@ -16,6 +16,7 @@ import { removeUser } from "../../Slices/UserSlice";
 const ProfileMenu = () => {
   const dispatch = useDispatch();
   const user = useSelector((state:any) =>state.user)
+  const profile = useSelector((state:any) =>state.profile)
   const [checked, setChecked] = useState(false);
   const [opened, setOpened] = useState(false);
 
@@ -28,7 +29,7 @@ const ProfileMenu = () => {
       <Menu.Target>
         <div className="flex gap-3 items-center cursor-pointer ">
           <div>{user.name} </div>
-          <Avatar src="avatar.png" alt="it's me" />
+          <Avatar src={profile.picture ? `data:image/png;base64,${profile.picture}` :"/avatar.png"} alt="it's me" />
         </div>
       </Menu.Target>
 
