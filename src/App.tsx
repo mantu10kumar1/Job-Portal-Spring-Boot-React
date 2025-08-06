@@ -12,7 +12,7 @@ import FindJobsPage from './Pages/FindJobsPage';
 import FindTalentPage from './Pages/FindTalentPage';
 import TalentProfilePage from './Pages/TalentProfilePage';
 import PostJobPage from './Pages/PostJobPage';
-import JobDescPage from './Pages/JobDescPage';
+import JobDescPage from './Pages/JobPage';
 import ApplyJobPage from './Pages/ApplyJobPage';
 import CompanyPage from './Pages/CompanyPage';
 import PostedJobPage from './Pages/PostedJobPage';

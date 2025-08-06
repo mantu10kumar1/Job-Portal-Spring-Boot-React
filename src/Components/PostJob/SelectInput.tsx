@@ -3,9 +3,10 @@ import { Combobox, InputBase, ScrollArea, useCombobox } from '@mantine/core';
 
 
 const SelectInput = (props: any) => {
-    console.log("Props data in selectInput : ", props.options)
     useEffect(() => {
         setData(props.options);
+        setSearch(props.form.getInputProps(props.name).value || '');
+        setValue(props.form.getInputProps(props.name).value || '');
     }, []);
     const combobox = useCombobox({
         onDropdownClose: () => combobox.resetSelectedOption(),
@@ -18,7 +19,7 @@ const SelectInput = (props: any) => {
     const exactOptionMatch = data.some((item) => item === search);
     const filteredOptions = exactOptionMatch
         ? data
-        : data.filter((item) => item.toLowerCase().includes(search.toLowerCase().trim()));
+        : data.filter((item) => item.toLowerCase().includes(search?.toLowerCase().trim()));
 
     const options = filteredOptions.map((item) => (
         <Combobox.Option value={item} key={item}>
@@ -28,15 +29,18 @@ const SelectInput = (props: any) => {
 
     return (
         <Combobox
+
             store={combobox}
             withinPortal={false}
             onOptionSubmit={(val) => {
                 if (val === '$create') {
                     setData((current) => [...current, search]);
                     setValue(search);
+                    props.form.setFieldValue(props.name, search);
                 } else {
                     setValue(val);
                     setSearch(val);
+                    props.form.setFieldValue(props.name, val);
                 }
 
                 combobox.closeDropdown();
@@ -44,7 +48,7 @@ const SelectInput = (props: any) => {
         >
             <Combobox.Target>
                 <InputBase withAsterisk
-                    className='[&_input]: font-medium'
+                   {...props.form.getInputProps(props.name)}
                     label={props.label}
                     rightSection={<Combobox.Chevron />}
                     value={search}
@@ -68,7 +72,7 @@ const SelectInput = (props: any) => {
                 <Combobox.Options>
                     <ScrollArea.Autosize mah={200} type="scroll">
                     {options}
-                    {!exactOptionMatch && search.trim().length > 0 && (
+                    {!exactOptionMatch && search?.trim().length > 0 && (
                         <Combobox.Option value="$create">+ Create {search}</Combobox.Option>
                     )}
                     </ScrollArea.Autosize>

@@ -6,7 +6,7 @@ import FindJobsPage from "./FindJobsPage"
 import CompanyPage from "./CompanyPage"
 import PostedJobPage from "./PostedJobPage"
 import JobHistoryPage from "./JobHistoryPage"
-import JobDescPage from "./JobDescPage"
+import JobPage from "./JobPage"
 import ApplyJobPage from "./ApplyJobPage"
 import PostJobPage from "./PostJobPage"
 import TalentProfilePage from "./TalentProfilePage"
@@ -26,11 +26,11 @@ const AppRoutes = () => {
             <Routes>
                 <Route path='/find-jobs' element={<FindJobsPage />} />
                 <Route path='/find-talent' element={<FindTalentPage />} />
-                <Route path='/company' element={<CompanyPage />} />
+                <Route path='/company/:name' element={<CompanyPage />} />
                 <Route path='/posted-job' element={<PostedJobPage />} />
                 <Route path='/job-history' element={<JobHistoryPage />} />
-                <Route path='/jobs' element={<JobDescPage />} />
-                <Route path='/apply-job' element={<ApplyJobPage />} />
+                <Route path='/jobs/:id' element={<JobPage />} />
+                <Route path='/apply-job/:id' element={<ApplyJobPage />} />
                 <Route path='/post-job' element={<PostJobPage />} />
                 <Route path='/talent-profile' element={<TalentProfilePage />} />
                 <Route path='/signup' element={user ? <Navigate to="/" /> : <SignUpPage />} />

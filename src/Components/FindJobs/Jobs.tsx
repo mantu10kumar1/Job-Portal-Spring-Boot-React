@@ -1,8 +1,23 @@
 import Sort from './Sort'
 import JobCard from './JobCard'
 import { jobList } from '../../Data/JobsData'
+import { useEffect, useState } from 'react';
+import { getAllJobs } from '../../Services/JobService';
 
 function Jobs() {
+    
+    const[jobList , setJobList] = useState([{}]);
+    useEffect(()=>{
+        getAllJobs().then((data)=>{
+            console.log("Jobs data : " , data);
+            setJobList(data);
+
+        }).catch((err)=>{
+            console.log("Occured error while fetching jobs : " , err);
+            console.log(err);
+        });
+    },[])
+
     return (
         <div className='p-5 '>
 
