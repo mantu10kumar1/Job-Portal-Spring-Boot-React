@@ -1,14 +1,43 @@
 import { ActionIcon, Button, Divider } from '@mantine/core'
-import { IconBookmark } from '@tabler/icons-react'
+import { IconBookmark, IconBookmarkFilled } from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 import DOMPurify from 'dompurify';
 import { card, desc, skills } from '../../Data/JobDescData';
 import { timeAgo } from '../../Services/Utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeProfile } from '../../Slices/ProfileSlice1';
+import { useEffect, useState } from 'react';
 
 function Job(props: any) {
-  const data = DOMPurify.sanitize(props.description);
-  console.log("props in Job : ", props);
+  const [applied , setApplied] = useState(false);
 
+  const user = useSelector((state:any) => state.user);
+
+  console.log("User in job : " , user);
+  console.log("Props in Job : " , props.applicants);
+  const data = DOMPurify.sanitize(props.description);
+  const dispatch = useDispatch();
+  const profile = useSelector((state:any) => state.profile);
+  const handleSavedJob = () =>{
+          let savedJobs:any = [...profile.savedJobs];
+          if(savedJobs.includes(props.id)){
+              savedJobs = savedJobs?.filter((id:any) => id!==props.id);
+          }else{
+              savedJobs = [...savedJobs, props.id];
+          }
+          let updatedProfile ={...profile, savedJobs:savedJobs};
+          dispatch(changeProfile(updatedProfile));
+      }
+       
+ useEffect(() => {
+    // We use optional chaining '?' to safely access props.applicants
+    const hasApplied = props.applicants?.filter((applicant:any) => applicant.applicantId === user.id);
+    if (hasApplied) {
+      setApplied(true);
+    } else {
+      setApplied(false);
+    }
+  }, [props.applicants, props.user]);
   return (
     <div className='w-2/3'>
       <div className='flex justify-between mb-3  '>
@@ -25,10 +54,15 @@ function Job(props: any) {
           </div>
         </div>
         <div className='flex flex-col gap-2 items-center '>
-          <Link to={`/apply-job/${props.id}`}>
+         {(props.edit || !applied) && <Link to={`/apply-job/${props.id}`}>
             <Button color="brightSun.4" size="sm" variant="light" >{props.edit ? "Edit" : "Apply"}</Button>
-          </Link>
-          {props.edit ? <Button color="red.5" size="sm" variant="outline" >Delete</Button> : <IconBookmark className='cursor-pointer text-bright-sun-400  ' stroke={1.5} />}
+          </Link>}
+          {applied && <Button color="green.8" size="sm" variant="light" >Applied</Button>}
+          {props.edit ? <Button color="red.5" size="sm" variant="outline" >Delete</Button> : 
+           profile?.savedJobs?.includes(props.id) ?  <IconBookmarkFilled onClick={handleSavedJob} 
+                className='cursor-pointer text-bright-sun-400 ' stroke={1.5}/>:
+                 <IconBookmark onClick={handleSavedJob} className='hover:text-bright-sun-400  text-mine-shaft-300 
+                  cursor-pointer ' stroke={1.5}/>} 
         </div>
       </div>
       <Divider my="xl" />
@@ -40,7 +74,7 @@ function Job(props: any) {
               <item.icon className='h-4/5 w-4/5  ' stroke={1.5} />
             </ActionIcon>
             <div className='text-sm text-mine-shaft-300'>{item.name}</div>
-            <div className='font-semibold'>{props ? props[item.id] : "Na"} {item.id == "packageOffered" && <>LPA</> } </div>
+            <div className='font-semibold'>{props ? props[item.id] : "Na"} {item.id === "packageOffered" && <>LPA</> } </div>
           </div>)
         }
       </div>

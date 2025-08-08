@@ -21,7 +21,6 @@ function Profile() {
   const { hovered, ref } = useHover();
   const handleFileChange = async (image: any) => {
     let picture: any = await getBase64(image);
-    console.log("Picture : ", picture);
     let updatedProfile = { ...profile, picture: picture.split(',')[1] };
     dispatch(changeProfile(updatedProfile));
     successNotification("Success", "Profile Picture updated Successfully");

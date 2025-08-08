@@ -8,7 +8,7 @@ function RecommendedJob() {
     const[jobList , setJobList] = useState<any>(null);
     useEffect(()=>{
         getAllJobs().then((data)=>{
-            console.log("Recomended Jobs data : " , data);
+            // console.log("Recomended Jobs data : " , data);
             setJobList(data);
 
         }).catch((err)=>{
@@ -21,7 +21,7 @@ function RecommendedJob() {
         <div className='text-xl font-semibold mb-5 '>Recommended Jobs</div>
         <div className='flex flex-col flex-wrap gap-5 '>
             {
-                jobList?.map((job:any , index:number) => index <6 && id!=job.id && <JobCard key={index} {...job} /> )
+                jobList?.map((job:any , index:number) => index <6 && id!==job.id && <JobCard key={index} {...job} /> )
             }
         </div>
 
