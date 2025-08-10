@@ -32,6 +32,7 @@ public class Job {
 	private String description;
 	private List<String> skillsRequired;
 	private JobStatus jobStatus;
+	private Long postedBy;
 	
 	public JobDTO
 	toDTO() {
@@ -48,7 +49,8 @@ public class Job {
 				this.postTime ,
 				this.description ,
 				this.skillsRequired ,
-				this.jobStatus 
+				this.jobStatus ,
+				this.postedBy
 				
 				);
 	}

@@ -27,6 +27,7 @@ public class ProfileDTO {
 	private List<String> skills;
 	private List<Experience> experience;
 	private List<Certification> certification;
+	private List<Long>savedJobs;
 	
 	public Profile toEntity() {
 		return new Profile(
@@ -39,6 +40,7 @@ public class ProfileDTO {
 		this.picture !=null? Base64.getDecoder().decode(this.picture):null,
 		this.skills,
 		this.experience ,
-		this.certification);
+		this.certification,
+		this.savedJobs);
 	}
 }

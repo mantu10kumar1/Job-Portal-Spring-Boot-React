@@ -26,6 +26,7 @@ public class ApplicantDTO {
 	private String coverLetter;
 	private LocalDateTime timestamp;
 	private ApplicationStatus applicationStatus;
+	private LocalDateTime interviewTime;
 	
 	public Applicant toEntity() { 
 		return new Applicant (this.applicantId ,
@@ -36,7 +37,9 @@ public class ApplicantDTO {
 		this.resume !=null? Base64.getDecoder().decode(this.resume):null,
 		this.coverLetter ,
 		this.timestamp ,
-		this.applicationStatus = applicationStatus);	
+		this.applicationStatus = applicationStatus,
+		this.interviewTime
+		);	
 	}
 	
 	

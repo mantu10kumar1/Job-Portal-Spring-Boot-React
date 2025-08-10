@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jobportal.dto.ApplicantDTO;
+import com.jobportal.dto.Application;
 import com.jobportal.dto.ApplicationStatus;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.entity.Applicant;
@@ -61,6 +62,29 @@ public class JobServiceImpl implements JobService {
 		System.out.println("Applicant : " + applicants);
 		job.setApplicants(applicants);
 	    jobRepository.save(job);
+		
+	}
+
+	@Override
+	public List<JobDTO> getJobPostedBy(Long id) {
+		 return jobRepository.findByPostedBy(id)
+                 .stream()
+                 .map(job -> job.toDTO())
+                 .collect(Collectors.toList());
+	}
+
+	@Override
+	public void changeAppStatus(Application application) throws JobPortalException {
+		Job job = jobRepository.findById(application.getId()).orElseThrow(() ->new JobPortalException("JOB_NOT_FOUND"));
+		List<Applicant> applicants = job.getApplicants().stream().map((x)->{
+			if(application.getApplicantId() == x.getApplicantId()) {
+				x.setApplicationStatus(application.getApplicationStatus());
+				if(application.getApplicationStatus().equals(ApplicationStatus.INTERVIEWING))x.setInterviewTime(application.getInterviewTime());
+			}
+			return x;
+		}).toList();
+		job.setApplicants(applicants);
+		jobRepository.save(job);
 		
 	}
 
