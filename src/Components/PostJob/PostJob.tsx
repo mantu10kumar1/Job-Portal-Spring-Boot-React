@@ -7,8 +7,10 @@ import { skills } from '../../Data/JobDescData';
 import { postJob } from '../../Services/JobService';
 import { successNotification } from '../../Services/NotificationService';
 import {  useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function PostJob() {
+    const user = useSelector((state: any) => state.user);
     const navigate = useNavigate();
     const select = fields;
     const form = useForm({
@@ -42,10 +44,23 @@ function PostJob() {
         form.validate();
         if(!form.isValid()) return;
         console.log(form.getValues());
-        postJob(form.getValues()).then(res=>{
+        postJob({...form.getValues() , postedBy:user.id,jobStatus:"ACTIVE"}).then(res=>{
             console.log("Job Posted Successfully",res);
             successNotification("Success" , "Job Posted Successfully");
-            navigate("/posted-job");
+            console.log("Posted job id : " , res.id);
+            navigate(`/posted-job/${res.id}`);
+        }).catch(err=>{
+            console.log("Error in posting job" , err);
+            successNotification("Error" , err.response.data.message );
+        })
+    }
+    const handleDraft=()=>{
+      
+        postJob({...form.getValues() , postedBy:user.id,jobStatus:"DRAFT"}).then(res=>{
+            console.log("Job Drafted Successfully",res);
+            successNotification("Success" , "Job Drafted Successfully");
+            console.log("Posted job id : " , res.id);
+            navigate(`/posted-job/${res.id}`);
         }).catch(err=>{
             console.log("Error in posting job" , err);
             successNotification("Error" , err.response.data.message );
@@ -80,7 +95,7 @@ function PostJob() {
                 </div>
                 <div className='flex gap-4 '>
                     <Button onClick={handlePost} color="brightSun.4" variant="light" >Publish Job</Button>
-                    <Button color="brightSun.4" variant="outline" >Save as Draft</Button>
+                    <Button onClick={handleDraft} color="brightSun.4" variant="outline" >Save as Draft</Button>
                 </div>
             </div>
         </div>
