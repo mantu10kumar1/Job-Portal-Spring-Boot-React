@@ -1,6 +1,7 @@
 package com.jobportal.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,8 @@ public class ProfileServiceImpl implements ProfileService {
 		
 	}
 
+	@Override
+	public List<ProfileDTO> getAllProfile() {
+		return profileRepository.findAll().stream().map((x)-> x.toDTO()).toList();
+	}
 }

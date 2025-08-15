@@ -19,6 +19,7 @@ public class Profile {
 
 	@Id
 	private Long id;
+	private String name;
 	private String email;
 	private String jobTitle;
 	private String company;
@@ -33,6 +34,7 @@ public class Profile {
 	public ProfileDTO toDTO() {
 		return new ProfileDTO(
 		this.id ,
+		this.name,
 		this.email ,
 		this.jobTitle ,
 		this.company ,
