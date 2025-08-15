@@ -1,3 +1,6 @@
+import { format } from "path";
+import { formatDate } from "../../Services/Utilities";
+
 function CertiCard(props:any) {
     console.log("CertiCard props data : " , props);
   return (
@@ -14,7 +17,7 @@ function CertiCard(props:any) {
                     </div>
                 </div>
               <div className="flex flex-col items-end " >
-                <div className='text-sm text-mine-shaft-300 '>{props.issueDate}</div>
+                <div className='text-sm text-mine-shaft-300 '>{formatDate(props.issueDate)}</div>
                 <div className='text-sm text-mine-shaft-300 '>{props.certificateId}</div>
               </div>
             </div>

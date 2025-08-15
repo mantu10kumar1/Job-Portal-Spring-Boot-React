@@ -51,4 +51,32 @@ const getBase64 = (file: any) => {
     })
   }
 
-export {formatDate, timeAgo , getBase64};
+  const formatInterviewTime = (dateStr: any) => {
+      const date = new Date(dateStr);
+      return date.toLocaleString('en-US',{
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      })
+}
+
+// How to show resume in new tab using blob I have base64 string write java script function for that
+const openBase64PDF = (base64String: string) => {
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+   
+  }
+
+
+
+export {formatDate, timeAgo , getBase64 , formatInterviewTime , openBase64PDF};

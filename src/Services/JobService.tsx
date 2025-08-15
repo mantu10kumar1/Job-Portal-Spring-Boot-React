@@ -49,8 +49,8 @@ const getJobPosted = async (id:any) => {
 }
 
 // change application status
-const changeAppStatus = async (id:any ,  applicant:any) => {
-    return axios.post(`${base_url}changeAppStatus/${id}`,applicant)
+const changeAppStatus = async ( applicant:any) => {
+    return axios.post(`${base_url}changeAppStatus`,applicant)
     .then(res => res.data)
     .catch(error =>{
         throw error;

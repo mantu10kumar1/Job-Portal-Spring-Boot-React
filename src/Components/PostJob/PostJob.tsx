@@ -3,16 +3,30 @@ import { Button, NumberInput, TagsInput, Textarea } from '@mantine/core';
 import TextEditor from './RichTextEditor';
 import { content, fields } from '../../Data/PostJob';
 import { isNotEmpty, useForm } from '@mantine/form';
-import { skills } from '../../Data/JobDescData';
-import { postJob } from '../../Services/JobService';
+import { getJob, postJob } from '../../Services/JobService';
 import { successNotification } from '../../Services/NotificationService';
-import {  useNavigate } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 function PostJob() {
+    const {id} = useParams();
+    const [editorData , setEditorData] = useState(content);
     const user = useSelector((state: any) => state.user);
     const navigate = useNavigate();
     const select = fields;
+    useEffect(() =>{
+        window.scrollTo(0, 0);
+        if(id !== "0"){
+            getJob(id).then((res) =>{
+                form.setValues(res)
+                console.log("Job Details in PostJob :", res);
+                setEditorData(res.description);
+            }).catch((err) =>{
+                console.error("Error fetching job details:", err);
+            })
+        }
+    },[id]);
     const form = useForm({
         mode: 'controlled',
         validateInputOnChange: true,
@@ -25,7 +39,7 @@ function PostJob() {
             packageOffered: '',
             skillsRequired: [],
             about: '',
-            descriptioin: content
+            description: content
         },
         validate: {
             jobTitle: isNotEmpty("Job Title is required"),
@@ -36,7 +50,7 @@ function PostJob() {
             packageOffered: isNotEmpty("Package Offered is required"),
             skillsRequired: isNotEmpty("Skills Required is required"),
             about: isNotEmpty("About is required"),
-            descriptioin: isNotEmpty("Description is required"),
+            description: isNotEmpty("Description is required"),
         }
 
     });
@@ -91,7 +105,7 @@ function PostJob() {
                 <div className="[&_button[data-active='true']]:!text-bright-sun-400
                  [&_button[data-active='true']]:!bg-bright-sun-400/20 " >
                     <div className='text-sm font-medium '>Job Description <span className='text-red-500' >*</span> </div>
-                    <TextEditor form={form} name="descriptioin" />
+                    <TextEditor form={form} data={editorData} name="descriptioin" />
                 </div>
                 <div className='flex gap-4 '>
                     <Button onClick={handlePost} color="brightSun.4" variant="light" >Publish Job</Button>
