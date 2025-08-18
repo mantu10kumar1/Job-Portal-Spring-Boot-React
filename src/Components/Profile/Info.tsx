@@ -59,6 +59,7 @@ function Info() {
             <SelectInput form={form} name="company" {...select[1]} />
           </div>
           <SelectInput form={form} name="location" {...select[2]} />
+          {/* <SelectInput form={form} name="totalExp"  {...select[3]} /> */}
         </>
       ) : (
         <>

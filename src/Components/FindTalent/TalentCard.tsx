@@ -81,8 +81,8 @@ function TalentCard(props: any) {
                 props.invited ? <div>
                     <IconCalendarMonth stroke={1.5} /> Interview: {formatInterviewTime(props.interviewTime)}
                 </div> : <div className='flex justify-between '>
-                    <div className='font-semibold text-mine-shaft-200 '>
-                        23 LPA
+                    <div className=' text-mine-shaft-300 '>
+                       Exp : {props.totalExp? props.totalExp : 1 } {props.totalExp > 1 ? "Years" : "Year"}
                     </div>
                     <div className=' flex  gap-1 text-xs items-center text-mine-shaft-400 '>
                         <IconMapPin className='h-5 w-5  ' stroke={1.5} /> {profile.location}
