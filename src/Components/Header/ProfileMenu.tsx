@@ -17,8 +17,8 @@ const ProfileMenu = () => {
   const dispatch = useDispatch();
   const user = useSelector((state:any) =>state.user)
   const profile = useSelector((state:any) =>state.profile)
-  const [checked, setChecked] = useState(false);
   const [opened, setOpened] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const handleLogout = () =>{
     dispatch(removeUser());

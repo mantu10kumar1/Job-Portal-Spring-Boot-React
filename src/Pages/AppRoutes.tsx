@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Header from "../Components/Header/Header"
+import '@mantine/core/styles.css';
 import { Divider } from "@mantine/core"
 import FindTalentPage from "./FindTalentPage"
 import FindJobsPage from "./FindJobsPage"

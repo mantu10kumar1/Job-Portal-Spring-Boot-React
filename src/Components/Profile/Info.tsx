@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import fields from '../../Data/Profile';
 import { IconBriefcase, IconCheck, IconMapPin, IconPencil, IconX } from '@tabler/icons-react';
-import { ActionIcon } from '@mantine/core';
+import { ActionIcon, NumberInput } from '@mantine/core';
 import SelectInput from './SelectInput';
 import { useForm } from '@mantine/form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ function Info() {
 
   const form = useForm({
     mode: 'controlled',
-    initialValues: { jobTitle: '', company: '', location: '' },
+    initialValues: { jobTitle: '', company: '', location: '', totalExp: 1 },
   });
 
 
@@ -24,7 +24,7 @@ function Info() {
   const handleClick = () => {
     if (!edit) {
       setEdit(true);
-      form.setValues({ jobTitle: profile.jobTitle, company: profile.company, location: profile.location });
+      form.setValues({ jobTitle: profile.jobTitle, company: profile.company, location: profile.location, totalExp: profile.totalExp });
     } else {
       setEdit(false);
     }
@@ -58,7 +58,12 @@ function Info() {
             <SelectInput form={form} name="jobTitle" {...select[0]} />
             <SelectInput form={form} name="company" {...select[1]} />
           </div>
-          <SelectInput form={form} name="location" {...select[2]} />
+          <div className="flex gap-10 [&>*]:w-1/2 ">
+                    <SelectInput form={form} name="location" {...select[2]} />
+                    <NumberInput label="Experience" withAsterisk hideControls min={1} max={50} clampBehavior='strict'
+                     {...form.getInputProps('totalExp')} />
+
+          </div>
           {/* <SelectInput form={form} name="totalExp"  {...select[3]} /> */}
         </>
       ) : (
@@ -74,6 +79,10 @@ function Info() {
       <div className=" flex  gap-1 text-lg items-center text-mine-shaft-300 ">
         <IconMapPin className="h-5 w-5  " stroke={1.5} />
         {profile.location}
+      </div>
+      <div className=" flex  gap-1 text-lg items-center text-mine-shaft-300 ">
+        <IconBriefcase className="h-5 w-5  " stroke={1.5} />
+        Experience : {profile.totalExp} Years  
       </div>
     </>
   )

@@ -10,6 +10,7 @@ function SearchBar() {
   const dispatch = useDispatch();
   const [value, setValue] = useState<[number , number]>([0, 50])
   const [name , setName] = useState('');
+
   const handleChange = (name: any , event:any) =>{
     if(name === "exp") dispatch(updateFilter({exp:event}));
     else{
@@ -51,11 +52,15 @@ function SearchBar() {
         <div>Experience (Years)</div>
         <div>{value[0]}  - {value[1]} </div>
       </div>
-          <RangeSlider onChangeEnd={(e) =>handleChange("exp" , e)} color='brightSun.4' min={1} max={50} size="xs" value={value} labelTransitionProps={{
+          <RangeSlider 
+          value={value} 
+          onChange={setValue} 
+          onChangeEnd={(e) =>handleChange("exp" , e)} minRange={1} color='brightSun.4' min={1} max={50} size="xs" 
+          labelTransitionProps={{
             transition : 'skew-down',
             duration : 150,
             timingFunction : 'linear'
-          }}  onChange={setValue} />
+          }} />
 
       </div>
     </div>

@@ -38,6 +38,9 @@ function Profile() {
         <div className=' flex  gap-1 text-lg items-center text-mine-shaft-300 '>
           <IconMapPin className='h-5 w-5  ' stroke={1.5} />{profile?.location}
         </div>
+        <div className=' flex  gap-1 text-lg items-center text-mine-shaft-300 '>
+          <IconBriefcase className='h-5 w-5  ' stroke={1.5} /> Experience :  {profile?.totalExp} Years
+        </div>
       </div>
       <Divider mx='xs' my='xl' />
       <div className='px-3 '>

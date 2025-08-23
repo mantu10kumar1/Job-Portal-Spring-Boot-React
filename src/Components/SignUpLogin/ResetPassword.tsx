@@ -65,7 +65,7 @@ function ResetPassword(props: any) {
     const handleResetPassword = () => {
         changePassword(email, password).then((res) => {
             console.log("Password changed successfully", res);
-            successNotification("Password Changed", "Login with new password.");
+            successNotification("Password Changed Successfully...", "Login with new password.");
             props.close();
         }).catch((err) => {
             console.log("Error while changing password : ", err);
