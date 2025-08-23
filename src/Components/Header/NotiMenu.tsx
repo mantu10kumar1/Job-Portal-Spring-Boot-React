@@ -72,7 +72,6 @@ function NotiMenu() {
                             className='hover:bg-mine-shaft-900 cursor-pointer' onClose={() => unread(index)}
                             icon={<IconCheck size={20} />}
                             title={noti.action} mt="md">
-
                             {noti.message}
                         </Notification>)
                     }
