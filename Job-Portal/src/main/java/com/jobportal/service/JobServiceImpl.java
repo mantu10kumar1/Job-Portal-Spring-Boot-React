@@ -13,6 +13,7 @@ import com.jobportal.dto.Application;
 import com.jobportal.dto.ApplicationStatus;
 import com.jobportal.dto.JobDTO;
 import com.jobportal.dto.JobStatus;
+import com.jobportal.dto.NotificationDTO;
 import com.jobportal.entity.Applicant;
 import com.jobportal.entity.Job;
 import com.jobportal.exception.JobPortalException;
@@ -24,16 +25,26 @@ public class JobServiceImpl implements JobService {
 	
 	@Autowired
 	private JobRepository jobRepository;
+	
+	@Autowired
+	private NotificationService notificationService;
 
 	// Create Job
 	@Override
 	public JobDTO postJob(JobDTO jobDTO) throws JobPortalException {
 //		System.out.println("JobDTO : " , jobDTO.getId());
-		System.out.println("jobDTO id : " + jobDTO.getId());
+//		System.out.println("jobDTO id : " + jobDTO.getId());
 
-		if(jobDTO.getId() == 0) {
+		if(jobDTO.getId() == null) {
 			jobDTO.setId(Utilities.getNetSequence("jobs"));
 		    jobDTO.setPostTime(LocalDateTime.now());
+		    NotificationDTO notiDto = new NotificationDTO();
+			notiDto.setAction("Job Posted");
+			notiDto.setMessage("Job Posted Successfully for " + jobDTO.getJobTitle()+ " at " + jobDTO.getCompany());
+			
+			notiDto.setUserId(jobDTO.getPostedBy());
+			notiDto.setRoute("/posted-job/"+jobDTO.getId());
+				notificationService.sendNotification(notiDto);
 		}else {
 			Job job = jobRepository.findById(jobDTO.getId())
             .orElseThrow(() -> new JobPortalException("JOB_NOT_FOUND"));
@@ -70,6 +81,8 @@ public class JobServiceImpl implements JobService {
 		if(applicants==null)applicants  = new ArrayList<>();
 		if(applicants.stream().filter((x)->x.getApplicantId()==applicantDTO.getApplicantId()).toList().size()>0)throw new JobPortalException("JOB_APPLIED_ALREADY");
 		applicantDTO.setApplicationStatus(ApplicationStatus.APPLIED);
+		applicantDTO.setTimestamp(LocalDateTime.now());
+		applicantDTO.setInterviewTime(LocalDateTime.now());
 		applicants.add(applicantDTO.toEntity());
 		System.out.println("Applicant : " + applicants);
 		job.setApplicants(applicants);
@@ -91,7 +104,20 @@ public class JobServiceImpl implements JobService {
 		List<Applicant> applicants = job.getApplicants().stream().map((x)->{
 			if(application.getApplicantId() == x.getApplicantId()) {
 				x.setApplicationStatus(application.getApplicationStatus());
-				if(application.getApplicationStatus().equals(ApplicationStatus.INTERVIEWING))x.setInterviewTime(application.getInterviewTime());
+				if(application.getApplicationStatus().equals(ApplicationStatus.INTERVIEWING)) {
+					x.setInterviewTime(application.getInterviewTime());
+					NotificationDTO notiDto = new NotificationDTO();
+					notiDto.setAction("Interview Scheduled");
+					notiDto.setMessage("Interview scheduled for job id : " + application.getId());
+					notiDto.setUserId(application.getApplicantId());
+					notiDto.setRoute("/job-history");
+					try {
+						notificationService.sendNotification(notiDto);
+					} catch (JobPortalException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 			return x;
 		}).toList();

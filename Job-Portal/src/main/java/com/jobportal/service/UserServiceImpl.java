@@ -12,11 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jobportal.dto.LoginDTO;
+import com.jobportal.dto.NotificationDTO;
 import com.jobportal.dto.ResponseDTO;
 import com.jobportal.dto.UserDTO;
 import com.jobportal.entity.OTP;
 import com.jobportal.entity.User;
 import com.jobportal.exception.JobPortalException;
+import com.jobportal.repository.NotificationRepository;
 import com.jobportal.repository.OTPRepository;
 import com.jobportal.repository.UserRepository;
 import com.jobportal.utility.Data;
@@ -40,6 +42,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private OTPRepository otpRepository;
+	
+	@Autowired
+	private NotificationService notificationService;
 	
 	// This is the User Register function
 	@Override
@@ -98,6 +103,11 @@ public class UserServiceImpl implements UserService {
 		User user= userRepository.findByEmail(loginDTO.getEmail()).orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
 		user.setPassword(passwordEncoder.encode(loginDTO.getPassword()));
 		userRepository.save(user);
+		NotificationDTO noti = new NotificationDTO();
+		noti.setUserId(user.getId());
+		noti.setMessage("Password Reset Successful");
+		noti.setAction("Password ");
+		notificationService.sendNotification(noti);
 		return new ResponseDTO("Password changed successfully.");
 	}
 	

@@ -25,6 +25,7 @@ public class ProfileDTO {
 	private String location;
 	private String about;
 	private String picture;
+	private Long totalExp;
 	private List<String> skills;
 	private List<Experience> experience;
 	private List<Certification> certification;
@@ -40,6 +41,7 @@ public class ProfileDTO {
 		this.location ,
 		this.about ,
 		this.picture !=null? Base64.getDecoder().decode(this.picture):null,
+		this.totalExp,
 		this.skills,
 		this.experience ,
 		this.certification,
