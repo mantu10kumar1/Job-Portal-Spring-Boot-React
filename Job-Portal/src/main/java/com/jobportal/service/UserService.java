@@ -12,6 +12,8 @@ public interface UserService  {
 
 	public UserDTO registerUser(UserDTO userDTO) throws JobPortalException;
 
+	public UserDTO getUserByEmail(String email) throws JobPortalException;
+	
 	public UserDTO loginUser(@Valid LoginDTO loginDTO) throws JobPortalException;
 
 	public Boolean sendOtp(String email) throws Exception;
