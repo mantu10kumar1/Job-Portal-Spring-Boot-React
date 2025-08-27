@@ -2,13 +2,14 @@ import { Button, LoadingOverlay, PasswordInput, rem, TextInput } from '@mantine/
 import { IconAt,  IconLock } from '@tabler/icons-react'
 import { useState } from 'react';
 import {  useNavigate } from 'react-router-dom'
-import { loginUser } from '../../Services/UserService';
 import { loginValidation } from '../../Services/FormValidation';
 import { useDisclosure } from '@mantine/hooks';
 import ResetPassword from './ResetPassword';
 import { useDispatch } from 'react-redux';
 import { errorNotification, successNotification } from '../../Services/NotificationService';
 import { setUser } from '../../Slices/UserSlice';
+import { loginUser } from '../../Services/AuthService';
+import { setjwt } from '../../Slices/JWTSlice';
 
 const form = {
   email: '',
@@ -44,7 +45,8 @@ function Login() {
          successNotification("Login Successful" , "Redirecting to home page...");
           setTimeout(() => {
             setLoading(false);
-            dispatch(setUser(res));
+            // dispatch(setUser(res));
+            dispatch(setjwt(res.jwt));
             navigate('/');
           }, 4000);
         })

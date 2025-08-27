@@ -17,7 +17,7 @@ const loginUser = async (login:any) => {
     });
 }
 
-const sendOtp = (email : string) =>{
+const sendOtp = async (email : string) =>{
     return axios.post(`${base_url}sendOtp/${email}`)
     .then(res => res.data)
     .catch(error =>{
@@ -26,7 +26,7 @@ const sendOtp = (email : string) =>{
 }
 
 // Function to verify the OTP
-const verifyOtp = (email:any , otp:any) =>{
+const verifyOtp = async (email:any , otp:any) =>{
     return axios.get(`${base_url}verifyOtp/${email}/${otp}`)
     .then(res => res.data)  
     .catch(error =>{
@@ -35,7 +35,7 @@ const verifyOtp = (email:any , otp:any) =>{
 }
 
 // Function to reset the password
-const changePassword = (email:any , password:string) =>{
+const changePassword = async (email:any , password:string) =>{
     return axios.post(`${base_url}changePass`, { email, password})
     .then(res => res.data)
     .catch(error =>{
