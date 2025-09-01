@@ -10,7 +10,7 @@ function PostedJob(props:any) {
   },[props.job])
   return (
     <div className='w-1/5 mt-5 '>
-      <div className='text-2xl font-semibold mb-5   '>Jobs</div>
+      <div className='text-2xl font-semibold mb-5  '>Jobs</div>
       <div>
         <Tabs autoContrast variant="pills" value={activeTab} onChange={setActiveTab}>
           <Tabs.List className="[&_button[aria-selected='false']]:bg-mine-shaft-900 font-medium " >
@@ -20,7 +20,7 @@ function PostedJob(props:any) {
           </Tabs.List>
 
           <Tabs.Panel value={activeTab || 'ACTIVE'}>
-            <div className='flex flex-col gap-5 mt-5 '>
+            <div className='flex flex-col gap-5 mt-5  '>
               { 
                props.jobList?.filter((job:any) => job?.jobStatus === activeTab).map((item:any , index:number) => 
                <PostedJobCard key={index} {...item} /> )

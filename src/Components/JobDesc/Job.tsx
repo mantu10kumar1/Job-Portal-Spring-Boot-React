@@ -19,8 +19,8 @@ function Job(props: any) {
   const dispatch = useDispatch();
   const profile = useSelector((state:any) => state.profile);
   const handleSavedJob = () =>{
-          let savedJobs:any = [...profile.savedJobs];
-          if(savedJobs.includes(props.id)){
+          let savedJobs:any = [...profile?.savedJobs];
+          if(savedJobs?.includes(props.id)){
               savedJobs = savedJobs?.filter((id:any) => id!==props.id);
           }else{
               savedJobs = [...savedJobs, props.id];
@@ -47,21 +47,22 @@ function Job(props: any) {
     });
   }
   return (
-    <div className='w-2/3'>
-      <div className='flex justify-between mb-3  '>
+    <div className='w-2/3 bs-mx:w-full '>
+      <div className='flex justify-between mb-3 gap-4 flex-wrap '>
         <div className='flex gap-2 items-center '>
-          <div className='p-3 bg-mine-shaft-800 rounded-xl  '>
-            <img className=' h-14 ' src={`/Icons/${props.company}.png`} alt="ms" />
+          <div className='p-3 bg-mine-shaft-800 rounded-xl    '>
+            <img className=' h-14 xs-mx:h-10 xs-mx:w-10 ' src={`/Icons/${props.company}.png`} alt="ms" />
           </div>
 
           <div className='flex flex-col gap-1'>
-            <div className='font-semibold text-2xl' >{props.jobTitle}</div>
-            <div className='text-lg text-mine-shaft-300 '>{props.company} &bull; {timeAgo(props.postTime)} &bull;
-              {props.applicants ? props.applicants.length : 0} Applicants
+            <div className='font-semibold text-2xl xs-mx:text-xl' >{props.jobTitle}</div>
+            <div className='text-lg text-mine-shaft-300 xs-mx:flex-col xs-mx:text-base flex-wrap '><span>{props.company} &bull;</span> <span> {timeAgo(props.postTime)} &bull;</span>
+             <span>  {props.applicants ? props.applicants.length : 0} Applicants </span>
             </div>
           </div>
         </div>
-        <div className='flex flex-col gap-2 items-center '>
+        <div className='flex flex-col gap-2 items-center  sm-mx:flex-row sm-mx:gap-2 sm-mx:flex-wrap
+        sm-mx:w-full sm-mx:[&>button]:w-1/2 '>
          {(props.edit || !applied) && <Link to={props.edit? `/post-job/${props.id}` : `/apply-job/${props.id}`}>
             <Button color="brightSun.4" size="sm" variant="light" >
               {props.closed ? "Reopen" : props.edit ? "Edit" : "Apply"}</Button>
@@ -75,15 +76,15 @@ function Job(props: any) {
         </div>
       </div>
       <Divider my="xl" />
-      <div className='flex justify-between '>
+      <div className='flex justify-between gap-4 sm-mx:flex-wrap '>
 
         {
           card.map((item: any, index: any) => <div key={index} className='flex flex-col items-center gap-1'>
-            <ActionIcon color='brightSun.4' className='!h-12 !w-12 ' variant="light" radius="lg" aria-label="Settings">
+            <ActionIcon color='brightSun.4' className='!h-12 !w-12 xs-mx:!h-8 xs-mx:!2-8 capitalize ' variant="light" radius="lg" aria-label="Settings">
               <item.icon className='h-4/5 w-4/5  ' stroke={1.5} />
             </ActionIcon>
-            <div className='text-sm text-mine-shaft-300'>{item.name}</div>
-            <div className='font-semibold'>{props ? props[item.id] : "Na"} {item.id === "packageOffered" && <>LPA</> } </div>
+            <div className='text-sm text-mine-shaft-300 xs-mx:text-sm '>{item.name}</div>
+            <div className='font-semibold xs-mx:text-sm '>{props ? props[item.id] : "Na"} {item.id === "packageOffered" && <>LPA</> } </div>
           </div>)
         }
       </div>
@@ -101,13 +102,14 @@ function Job(props: any) {
       </div>
       <Divider my="xl" />
       <div className='[&_h4]:text-xl [&_*]:text-mine-shaft-300 [&_h4]:my-5 [&_h4]:font-semibold
-       [&_h4]:text-mine-shaft-200 [&_p]:text-justify [&_li]:marker:text-bright-sun-400 [&_li]:mb-1  '
+       [&_h4]:text-mine-shaft-200 [&_p]:text-justify [&_li]:marker:text-bright-sun-400 [&_li]:mb-1
+         '
         dangerouslySetInnerHTML={{ __html: data }}>
       </div>
       <Divider my="xl" />
       <div>
         <div className='text-xl font-semibold mb-5'>About the Company</div>
-        <div className='flex justify-between  '>
+        <div className='flex justify-between xs-mx:flex-wrap xs-mx:gap-2  '>
           <div className='flex gap-2 items-center '>
             <div className='p-3 bg-mine-shaft-800 rounded-xl  '>
               <img className=' h-8 ' src={`/Icons/${props.company}.png`} alt="ms" />
@@ -123,7 +125,7 @@ function Job(props: any) {
           </Link>
         </div>
       </div>
-      <div className='text-mine-shaft-300 text-justify'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni ullam maiores
+      <div className='text-mine-shaft-300 text-justify xs-mx:text-sm'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni ullam maiores
          quia, ratione sequi debitis, corrupti, ex quae fugit accusamus eaque in aspernatur. Harum et accusamus amet dolorum est quaerat
           voluptatum laudantium dicta facere, nulla magnam, facilis ipsa sint minima.</div>
 

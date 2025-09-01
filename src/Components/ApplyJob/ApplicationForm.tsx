@@ -69,13 +69,13 @@ function ApplicationForm() {
             />
             <div className='text-xl font-semibold mb-5'>Submit Your Application</div>
             <div className='flex flex-col gap-5'>
-                <div className='flex gap-10 [&>*]:w-1/2 '>
+                <div className='flex gap-10 [&>*]:w-1/2 sm-mx:[&>*]:!w-full sm-mx:flex-wrap md-mx:gap-5 '>
                     <TextInput {...form.getInputProps("name")} readOnly={preview} variant={preview ? "unstyled" : "default"}
                         className={`${preview ? "text-mine-shaft-200 font-semibold " : ""}`} label="Full Name" withAsterisk placeholder="Enter Name" />
                     <TextInput {...form.getInputProps("email")} readOnly={preview} variant={preview ? "unstyled" : "default"}
                         className={`${preview ? "text-mine-shaft-200 font-semibold " : ""}`} label="Email " withAsterisk placeholder="Enter email" />
                 </div>
-                <div className='flex gap-10 [&>*]:w-1/2 '>
+                <div className='flex gap-10 [&>*]:w-1/2 sm-mx:[&>*]:!w-full sm-mx:flex-wrap md-mx:gap-5'>
                     <NumberInput  {...form.getInputProps("phone")} readOnly={preview} variant={preview ? "unstyled" : "default"}
                         className={`${preview ? "text-mine-shaft-200 font-semibold " : ""}`} label="Phone Number" withAsterisk placeholder="Enter Phone Number" hideControls
                         min={0} max={9999999999} clampBehavior='strict' />

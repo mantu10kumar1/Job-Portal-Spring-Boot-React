@@ -58,8 +58,8 @@ function TalentCard(props: any) {
 
     }
     return (
-        <div className='bg-mine-shaft-900 p-4 w-[450px] flex flex-col gap-3 rounded-xl
-        hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 '>
+        <div className='bg-mine-shaft-900 p-1 w-96 flex flex-col gap-3 rounded-xl  xs-mx:w-full
+        hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 bs-mx:w-[100%] md-mx:w-full '>
             <div className='flex justify-between  '>
                 <div className='flex gap-2 items-center '>
                     <div className='p-2 bg-mine-shaft-800 rounded-full  '>
@@ -74,7 +74,7 @@ function TalentCard(props: any) {
                 <IconHeart className='text-mine-shaft-300 cursor-pointer ' stroke={1.5} />
             </div>
             <div className='flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400
-             [&>div]:rounded-lg text-xs '>
+             [&>div]:rounded-lg text-xs flex-wrap '>
                 {
                     profile?.skills?.map((skill: any, index: any) => index < 4 && <div key={index} className='p-2 py-1  
                     bg-mine-shaft-800text-bright-sun-400 rounded-lg text-xs '>{skill}</div>)
@@ -123,26 +123,7 @@ function TalentCard(props: any) {
                     </div>
                     {/* </Modal> */}
 
-                    <div>
-                        {/* <DateInput
-                        value={date}
-                        minDate={new Date()}
-                        onChange={(value) => setDate(value ? new Date(value) : null)}
-                        label="Date"
-                        placeholder="Enter Date"
-                    />
-                    <TimeInput value={time} onChange={(event:any)=>setTime(event.currentTarget.value)} label="Time" ref={ref}
-                     minTime='' onClick={() => ref.current?.showPicker()}  />
-                    <Button onClick={()=>handleOffer("INTERVIEWING")} color="brightSun.4" variant="outline" fullWidth>Schedule</Button>
-                */}
-                        {/* <Button onClick={() => handleOffer("INTERVIEWING")}  color="brightSun.4" variant="outline" rightSection={<IconCalendarMonth className='w-5 h-5' />}  fullWidth>Schedule</Button>
-                        <IconCalendarMonth className='w-5 h-5 absolute right-24 top-3 text-mine-shaft-300 ' stroke={1.5} /> */}
-
-                        {/* {props.posted ? <Button onClick={() => handleOffer("INTERVIEWING")} rightSection={<IconCalendarMonth className='w-5 h-5' />} 
-                        color="brightSun.4" variant="light" fullWidth>Schedule</Button>
-                            : <Button color="brightSun.4" variant="light" fullWidth>Message</Button>}
-                    */}
-                    </div>
+                  
 
                 </>
                 }

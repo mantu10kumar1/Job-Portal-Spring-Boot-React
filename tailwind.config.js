@@ -3,6 +3,12 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      keyframes:{
+
+      },
+      animation : {
+        'option-animation':'option-animation 200ms ease forwards',
+      } ,
       colors: {
         "mine-shaft": {
           50: "#f6f6f6",
@@ -32,6 +38,27 @@ module.exports = {
         },
       },
     },
+    screens:{
+      'sxm':'350px',
+      'xs':'476px',
+      'sm':'640px',
+      'md':'768px',
+      'lg':'1024px',
+      'bs':'900px',
+      'xl':'1280px',
+      '2xl':'1536px',
+      
+      '2xl-mx':{'max':'1536px'},
+      'xl-mx':{'max':'1280px'},
+      'lg-mx':{'max':'1024px  '},
+      'md-mx':{'max':'768px'},
+      'sm-mx':{'max':'640px '},
+      'xs-mx':{'max':'476px'},
+      'xsm-mx':{'max':'350px'},
+      'bs-mx':{'max':'900px'},
+      
+
+    }
   },
   plugins: [],
 };

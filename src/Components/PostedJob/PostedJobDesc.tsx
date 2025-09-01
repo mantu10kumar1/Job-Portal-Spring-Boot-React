@@ -24,14 +24,16 @@ function PostedJobDesc(props:any) {
     },[props])
 
     return (
-        <div className='mt-5 w-3/4 px-5'>
-          { props.jobTitle ? <>  <div className='text-2xl font-semibold flex items-center   '>{props.jobTitle}
+        <div className='mt-5 w-3/4 md-mx:w-full md-mx:p-0'>
+          { props.jobTitle ? <>  <div className='text-2xl xs-mx:text-xl font-semibold flex items-center   '>{props.jobTitle}
                 <Badge variant="light" color="brightSun.4" ml="sm" size="sm"> {props.jobStatus}</Badge>
             </div>
-            <div className='font-medium text-mine-shaft-300 mb-5'>{props.location}</div>
+            <div className='font-medium xs-mx:text-sm text-mine-shaft-300 mb-5'>{props.location}</div>
             <div>
                 <Tabs variant="outline" radius="lg" value={tab} onChange={handleTabChange} className='w-full ' >
-                    <Tabs.List className="[&_button]:!text-lg font-semibold mb-5 [&_button[data-active='true']]:text-bright-sun-400  " >
+                    <Tabs.List className="[&_button]:!text-lg font-semibold mt-5 [&_button[data-active='true']]:text-bright-sun-400 
+          sm-mx:[&_button]:!text-lg sx-mx:[&_button]:!text-base sx-mx:[&_button]:!px-1.5 sx-mx:[&_button]:!font-medium
+          sx-mx:[&_button]:!py-1 xsm-mx:[&_button]:!text-sm xsm-mx:[&*>]:!p-2  mb-2 " >
                         <Tabs.Tab value="overview">Overview</Tabs.Tab>
                         <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
                         <Tabs.Tab value="invited">Invited</Tabs.Tab>

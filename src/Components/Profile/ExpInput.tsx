@@ -101,8 +101,8 @@ function ExpInput(props: any) {
 }
   return (
     <div className="flex flex-col gap-3">
-      <div className="text-lg font-semibold"> {props.add ? "Add" : "Edit"} Experience</div>
-      <div className="flex gap-10 [&>*]:w-1/2">
+      <div className="text-lg font-semibold"> {props.add ? "Add" : "Edit"} Experience1</div>
+      <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 xs-mx:[&>*]:w-full xs-mx:flex-wrap">
         <SelectInput form={form} name="title" {...select[0]} />
         <SelectInput form={form} name="company" {...select[1]} />
       </div>
@@ -115,7 +115,7 @@ function ExpInput(props: any) {
         label="Summary"
         placeholder="Enter Summary..."
       />
-      <div className="flex gap-10 [&>*]:w-1/2">
+      <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 xs-mx:[&>*]:w-full xs-mx:flex-wrap ">
         <MonthPickerInput
           {...form.getInputProps("startDate")}
           label="Start Date"

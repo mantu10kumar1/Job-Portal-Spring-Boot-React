@@ -39,10 +39,10 @@ function Talents() {
         let filtereTalent = talents;
 
         console.log("Filter state:", filter);
-        if (filter.name) filtereTalent = filtereTalent.filter((talent: any) => talent.name.toLowerCase().includes(filter.name.toLowerCase()));
+        if (filter.name) filtereTalent = filtereTalent?.filter((talent: any) => talent?.name?.toLowerCase().includes(filter.name.toLowerCase()));
         if (filter["Job Title"] && filter["Job Title"].length > 0) {
-            filtereTalent = filtereTalent.filter((talent: any) => filter["Job Title"]?.some((title: any) =>
-                talent.jobTitle.toLowerCase().includes(title.toLowerCase())));
+            filtereTalent = filtereTalent?.filter((talent: any) => filter["Job Title"]?.some((title: any) =>
+                talent?.jobTitle.toLowerCase().includes(title.toLowerCase())));
         }
 
         // Same for location 

@@ -10,6 +10,7 @@ import { errorNotification, successNotification } from '../../Services/Notificat
 import { setUser } from '../../Slices/UserSlice';
 import { loginUser } from '../../Services/AuthService';
 import { setjwt } from '../../Slices/JWTSlice';
+import { jwtDecode } from 'jwt-decode';
 
 const form = {
   email: '',
@@ -43,10 +44,14 @@ function Login() {
         .then((res) => {
           console.log(res);
          successNotification("Login Successful" , "Redirecting to home page...");
-          setTimeout(() => {
+           dispatch(setjwt(res.jwt));
+            const decoded = jwtDecode(res.jwt);
+            console.log("Jwt decoded data in login page : " , decoded);
+            dispatch(setUser({...decoded, email: decoded.sub}));
+
+            setTimeout(() => {
             setLoading(false);
-            // dispatch(setUser(res));
-            dispatch(setjwt(res.jwt));
+           
             navigate('/');
           }, 4000);
         })

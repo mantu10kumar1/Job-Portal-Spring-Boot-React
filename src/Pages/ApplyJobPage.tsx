@@ -17,7 +17,7 @@ function ApplyJobPage() {
     }, [id])
     return (
         <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] p-4 " >
-            <Button my="md" leftSection={<IconArrowLeft size={20} />} onClick={() => navigate(-1)} color="brightSun.4" variant="light" >Back</Button>
+            <Button my="md" mb="xs" leftSection={<IconArrowLeft size={20} />} onClick={() => navigate(-1)} color="brightSun.4" variant="light" >Back</Button>
             <ApplyJobComp {...job} />
         </div>
     )

@@ -87,8 +87,8 @@ function Jobs() {
     return (
         <div className='p-5 '>
 
-            <div className='flex justify-between '>
-                <div className='text-2xl font-semibold ' >Recommended Jobs</div>
+            <div className='flex justify-between flex-wrap '>
+                <div className='text-2xl font-semibold xs-mx:text-xl ' >Recommended Jobs</div>
                 <Sort sort="job" />
             </div>
 

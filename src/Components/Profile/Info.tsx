@@ -7,8 +7,10 @@ import { useForm } from '@mantine/form';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeProfile } from '../../Slices/ProfileSlice1';
 import { successNotification } from '../../Services/NotificationService';
+import { useMediaQuery } from '@mantine/hooks';
 
 function Info() {
+  const matches = useMediaQuery('(max-width: 475px)');
   const select = fields;
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
@@ -38,39 +40,40 @@ function Info() {
   }
   return (
     <>
-      <div className="text-3xl font-semibold flex justify-between ">
+      <div className="text-3xl xs-mx:text-2xl font-semibold flex justify-between ">
         {" "}
         {user.name}
         <div>
-          {edit && <ActionIcon size="lg" variant="subtle" color="green.8" onClick={handleSave} >
+          {edit && <ActionIcon size={matches ? "md" : "lg"} variant="subtle" color="green.8" onClick={handleSave} >
             <IconCheck className=" h-4/5 w-4/5 " stroke={1.5} /> </ActionIcon>}
 
-          <ActionIcon size="lg" variant="subtle" color={edit?"red.8" : "brightSun.4"} onClick={handleClick} >   {edit ? (
+          <ActionIcon size={matches ? "md" : "lg"} variant="subtle" color={edit ? "red.8" : "brightSun.4"} onClick={handleClick} >   {edit ? (
             <IconX className=" h-4/5 w-4/5 " stroke={1.5} />) : (<IconPencil className="h-4/5 w-4/5" />)} </ActionIcon>
         </div>
       </div>
 
       {edit ? (
         <>
-          {" "}
 
-          <div className="flex gap-10 [&>*]:w-1/2 ">
+          <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 xs-mx:[&>*]:w-full xs-mx:flex-wrap ">
             <SelectInput form={form} name="jobTitle" {...select[0]} />
             <SelectInput form={form} name="company" {...select[1]} />
+
+
           </div>
-          <div className="flex gap-10 [&>*]:w-1/2 ">
-                    <SelectInput form={form} name="location" {...select[2]} />
-                    <NumberInput label="Experience" withAsterisk hideControls min={1} max={50} clampBehavior='strict'
-                     {...form.getInputProps('totalExp')} />
+          <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 xs-mx:[&>*]:w-full xs-mx:flex-wrap  ">
+            <SelectInput form={form} name="location" {...select[2]} />
+            <NumberInput label="Experience" withAsterisk hideControls min={1} max={50} clampBehavior='strict'
+              {...form.getInputProps('totalExp')} />
 
           </div>
           {/* <SelectInput form={form} name="totalExp"  {...select[3]} /> */}
         </>
       ) : (
         <>
-          <div className="text-xl flex gap-1 items-center  ">
+          <div className="text-xl flex gap-1 items-center xs-mx:text-base ">
             {" "}
-            <IconBriefcase className="h-5 w-5  " stroke={1.5} />{profile.jobTitle} {" "}
+            <IconBriefcase className="h-5 w-5 xs-mx:text-base " stroke={1.5} />{profile.jobTitle} {" "}
             &bull;{profile.company} {" "}
           </div>
         </>
@@ -82,7 +85,7 @@ function Info() {
       </div>
       <div className=" flex  gap-1 text-lg items-center text-mine-shaft-300 ">
         <IconBriefcase className="h-5 w-5  " stroke={1.5} />
-        Experience : {profile.totalExp} Years  
+        Experience : {profile.totalExp} Years
       </div>
     </>
   )

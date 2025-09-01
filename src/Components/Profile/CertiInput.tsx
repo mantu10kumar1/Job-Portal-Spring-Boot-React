@@ -6,10 +6,9 @@ import { changeProfile } from '../../Slices/ProfileSlice1';
 import { successNotification } from '../../Services/NotificationService';
 import SelectInput from './SelectInput';
 import fields from '../../Data/Profile';
+import { useMediaQuery } from '@mantine/hooks';
 
 function CertiInput(props: any) {
-    console.log("props value in certiInput ", props);
-
     const dispatch = useDispatch();
     const select = fields;
     const profile = useSelector((state: any) => state.profile);
@@ -67,11 +66,11 @@ function CertiInput(props: any) {
     return (
         <div className='flex flex-col gap-3'>
             <div className=" text-lg font-semibold ">Add Certificate </div>
-            <div className="flex gap-10 [&>*]:w-1/2 ">
+            <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 xs-mx:[&>*]:w-full xs-mx:flex-wrap ">
                 <TextInput {...form.getInputProps("name")} label="Title" withAsterisk placeholder="Enter Title" />
                 <SelectInput form={form} name="issuer" {...select[1]} />
             </div>
-            <div className="flex gap-10 [&>*]:w-1/2 ">
+            <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 xs-mx:[&>*]:w-full xs-mx:flex-wrap ">
                 <MonthPickerInput {...form.getInputProps("issueDate")} minDate={new Date()} label="Issue Date"
                     placeholder="Pick date" withAsterisk />
                 <TextInput {...form.getInputProps("certificateId")} label="Certificate ID" withAsterisk placeholder="Enter ID" />

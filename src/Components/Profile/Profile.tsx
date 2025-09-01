@@ -28,16 +28,16 @@ function Profile() {
  
 
   return (
-    <div className=" w-4/5 mx-auto ">
+    <div className=" w-4/5 mx-auto lg-mx:w-full ">
       <div className="">
-        <div className="relative">
-          <img className="rounded-t-2xl" src="/Profile/banner.jpg" alt="" />
+        <div className="relative px-5">
+          <img className="rounded-t-2xl xs-mx:h-32" src="/Profile/banner.jpg" alt="" />
           <div
             ref={ref}
-            className="absolute flex items-center justify-center -bottom-1/3 left-3"
+            className="absolute flex items-center justify-center -bottom-1/3  md-mx:-buttom-10 sm-mx:-buttom-16 left-6 "
           >
             <Avatar
-              className="!w-48 !h-48 border-l-mine-shaft-950 border-8 rounded-full"
+              className="!w-48 !h-48 border-l-mine-shaft-950 border-8 rounded-full   md-mx:!w-40 md-mx:!h-40 xs-mx:!w-32 xs-mx:!h-32 "
               src={profile.picture ? `data:image/png;base64,${profile.picture}` :"/avatar.png"}
               alt="avatar"
             />

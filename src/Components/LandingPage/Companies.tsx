@@ -4,12 +4,13 @@ import { companies } from '../../Data/Data'
 function Companies() {
   return (
     <div className='mt-20 pb-5  '>
-        <div className=' text-4xl text-center font-semibold mt-10 text-mine-shaft-100  '>Trusted By <span className='text-bright-sun-400'>1000+</span>  Conpanies</div>
+        <div className=' text-4xl md-mx:text-3xl sm-mx:text-2xl xs-mx:text-xl text-center font-semibold mt-10 text-mine-shaft-100  '>Trusted By <span className='text-bright-sun-400'>1000+</span>  Conpanies</div>
 
         <Marquee pauseOnHover={true} >
           {
             
-            companies.map((company,index) => <div key={index} className='mx-8 px-2 py-1 hover:bg-mine-shaft-900 rounded-xl cursor-pointer  '> 
+            companies.map((company,index) => <div key={index} className='mx-8
+            sm-mx:mx-6 xm-mx:mx-4 xsm-mx:mx-2 px-2 py-1 hover:bg-mine-shaft-900 rounded-xl cursor-pointer  '> 
             <img className='h-14 ' src={`/Companies/${company}.png`} alt={company} />
             </div> )
           }

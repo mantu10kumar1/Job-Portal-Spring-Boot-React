@@ -97,7 +97,9 @@ function JobHistory() {
 
         <Tabs value={activeTab} onChange={handleTabChange} variant="outline" radius="lg" >
 
-          <Tabs.List className="[&_button]:!text-lg font-semibold mt-5 [&_button[data-active='true']]:text-bright-sun-400  " >
+          <Tabs.List className="[&_button]:!text-lg font-semibold mt-5 [&_button[data-active='true']]:text-bright-sun-400 
+          sm-mx:[&_button]:!text-lg sx-mx:[&_button]:!text-base sx-mx:[&_button]:!px-1.5 sx-mx:[&_button]:!font-medium
+          sx-mx:[&_button]:!py-1 xsm-mx:[&_button]:!text-sm" >
 
             <Tabs.Tab value="APPLIED">Applied</Tabs.Tab>
 
