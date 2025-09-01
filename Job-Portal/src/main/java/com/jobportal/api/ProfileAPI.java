@@ -19,7 +19,11 @@ import com.jobportal.exception.JobPortalException;
 import com.jobportal.service.ProfileService;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
+//@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"},
+//methods = {org.springframework.web.bind.annotation.RequestMethod.GET, org.springframework.web.bind.annotation.RequestMethod.PUT, 
+//		org.springframework.web.bind.annotation.RequestMethod.OPTIONS})
+
 @Validated
 @RequestMapping("/profiles")
 public class ProfileAPI {

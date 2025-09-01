@@ -22,6 +22,7 @@ public class ProfileServiceImpl implements ProfileService {
 	public Long createProfile(String email) throws JobPortalException {
 		Profile profile = new Profile();
 		profile.setId(Utilities.getNetSequence("profiles"));
+//		profile.setName();
 		profile.setEmail(email);
 		profile.setSkills(new ArrayList());
 		profile.setExperience(new ArrayList());

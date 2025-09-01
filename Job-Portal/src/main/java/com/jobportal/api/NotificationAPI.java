@@ -36,7 +36,7 @@ public class NotificationAPI {
 	@GetMapping("/read/{id}")
 	public ResponseEntity<ResponseDTO> readNotifications(@PathVariable Long id) throws JobPortalException{
 		notificationService.readNotification(id);
-		return new ResponseEntity<> (new ResponseDTO("SUC;CESS") , HttpStatus.OK);
+		return new ResponseEntity<> (new ResponseDTO("SUCCESS") , HttpStatus.OK);
 	}
 	
 }

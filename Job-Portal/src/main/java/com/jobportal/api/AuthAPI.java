@@ -18,7 +18,7 @@ import com.jobportal.jwt.AuthenticationResponse;
 import com.jobportal.jwt.JwtHelper;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @Validated
 @RequestMapping("/auth")
 public class AuthAPI {
