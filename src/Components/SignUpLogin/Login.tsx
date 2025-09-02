@@ -66,7 +66,7 @@ function Login() {
   return (
     <>   <LoadingOverlay className='size-lg' visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 , color:"brightSun.4"}} />
 
-    <div className='w-1/2  px-20 flex flex-col justify-center gap-3 '>
+    <div className='w-1/2 sm-mx:w-full  px-20 bs-mx:px-10 md-mx:px-5 flex flex-col justify-center  gap-3 '>
       <div className='text-2xl font-semibold '>Create Account</div>
       <TextInput value={data.email} error={formError.email} onChange={handleChange} name='email' withAsterisk 
       leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />}
@@ -76,11 +76,11 @@ function Login() {
       leftSection={<IconLock size={18} stroke={1.5} />} label="Password" placeholder="Password" />
 
       <Button onClick={handleSubmit} loading={loading} autoContrast variant='filled' >Login</Button>
-      <div className='mx-auto'>Don't have an account? <span onClick={() =>{navigate("/signup");setFormError(form); 
+      <div className='mx-auto sm-mx:text-sm xs-mx:text-xs'>Don't have an account? <span onClick={() =>{navigate("/signup");setFormError(form); 
       setData(form)}}
-       className='text-bright-sun-400 hover:underline cursor-pointer '>SignUp </span> </div>
-
-       <div onClick={open} className=' text-bright-sun-400 hover:underline cursor-pointer text-center ' >Forget Password</div>
+       className='text-bright-sun-400 hover:underline cursor-pointer sm-mx:text-sm xs-mx:text-xs '>SignUp </span> </div>
+ 
+       <div onClick={open} className=' text-bright-sun-400 hover:underline cursor-pointer text-center sm-mx:text-sm xs-mx:text-xs ' >Forget Password</div>
     </div>
     <ResetPassword opened={opened} close={close} />
     </>

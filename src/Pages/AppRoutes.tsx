@@ -27,6 +27,7 @@ const AppRoutes = () => {
             <Header />
             <Divider mx='xs' size="sm" />
             <Routes>
+                <Route path='/' element={<HomePage />} />
                 <Route path='/find-jobs' element={<FindJobsPage />} />
                 <Route path='/find-talent' element={<FindTalentPage />} />
                 <Route path='/company/:name' element={<CompanyPage />} />
@@ -37,9 +38,9 @@ const AppRoutes = () => {
                 <Route path='/post-job/:id' element={<ProtectedRoute allowedRoles={['EMPLOYER']} ><PostJobPage /></ProtectedRoute> } />
                 <Route path='/talent-profile/:id' element={<TalentProfilePage />} />
                 <Route path='/signup' element={<PublicRoute><SignUpPage /></PublicRoute> } />
-                <Route path='/login' element={ <SignUpPage />} />
+                {/* <Route path='/signup' element={ <SignUpPage /> } /> */}
+                <Route path='/login' element={ <PublicRoute><SignUpPage /></PublicRoute> } />
                 <Route path='/profile' element={<ProfilePage />} />
-                <Route path='*' element={<HomePage />} />
             </Routes>
             <Footer />
         </div>

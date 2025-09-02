@@ -77,7 +77,7 @@ function SignUp() {
   }
 
   return  <> <LoadingOverlay className='translate-x-1/2 size-lg'  visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 , color:"brightSun.4"}} />
-    <div className='w-1/2  px-20 flex flex-col justify-center gap-3 '>
+    <div className='w-1/2 sm-mx:py-20 sm-mx:w-full  px-20 bs-mx:px-10 md-mx:px-5  flex flex-col justify-center gap-3 '>
       <div className='text-2xl font-semibold '>Create Account</div>
       <TextInput value={data.name} error={formError.name} onChange={handleChange} name='name' withAsterisk label="Full Name" placeholder='Your name' />
       <TextInput value={data.email} error={formError.email} onChange={handleChange} name='email' withAsterisk leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />}
@@ -93,18 +93,21 @@ function SignUp() {
         description="This is anonymous"
         withAsterisk
       >
+        <div className='flex gap-6 xs-mx:gap-3 '>
         <Group mt="xs">
-          <Radio className='py-4 px-6 border hover:bg-mine-saft-900 has-[:checked]:bg-bright-sun-400/5 has-[:checked]:border
-          -bright-sun-400 border-mine-shaft-800 rounded-lg '  autoContrast value="APPLICANT" label="Applicant" />
-          <Radio className='py-4 px-6 border hover:bg-mine-saft-900 has-[:checked]:bg-bright-sun-400/5 has-[:checked]:border
-          -bright-sun-400 border-mine-shaft-800 rounded-lg ' autoContrast value="EMPLOYER" label="Employer" />
+          
+          <Radio className='py-4 px-6 sm-mx:px-4 sm-mx:py-2 border hover:bg-mine-saft-900 has-[:checked]:bg-bright-sun-400/5 has-[:checked]:border
+          -bright-sun-400 border-mine-shaft-800 rounded-lg '   value="APPLICANT" label="Applicant" />
+          <Radio className='py-4 px-6 sm-mx:px-4 sm-mx:py-2 border hover:bg-mine-saft-900 has-[:checked]:bg-bright-sun-400/5 has-[:checked]:border
+          -bright-sun-400 border-mine-shaft-800 rounded-lg '  value="EMPLOYER" label="Employer" />
         </Group>
+        </div>
       </Radio.Group>
 
       <Checkbox autoContrast label={<>I accept{' '} <Anchor>terms & conditions</Anchor> </>} />
       <Button loading={loading} onClick={handleSubmit} autoContrast variant='filled' >Sign up</Button>
-      <div className='mx-auto'>Have an account? <span onClick={() => { navigate("/login"); setFormError(form); setData(form) }}
-        className='text-bright-sun-400 hover:underline cursor-pointer '>Login </span> </div>
+      <div className='mx-auto sm-mx:text-sm xs-mx:text-xs '>Have an account? <span onClick={() => { navigate("/login"); setFormError(form); setData(form) }}
+        className='text-bright-sun-400 hover:underline cursor-pointer sm-mx:text-sm xs-mx:text-xs '>Login </span> </div>
     </div> 
   </>
 }

@@ -46,13 +46,14 @@ const Header = () => {
 
         }
         console.log("This is the user  : ", user)
-        getProfile(user?.id).then((data: any) => {
+        if(user?.id)getProfile(user?.id).then((data: any) => {
             dispatch(setProfile(data));
         }).catch((error: any) => {
             console.log("Error while getting profile : ", error)
         })
     }, [token])
-    return location.pathname !== "/signup" && location.pathname !== "/login" ? <div className="w-full text-white bg-mine-shaft-950 px-6 h-20 flex justify-between items-center   font-['poppins']  ">
+    return location.pathname !== "/signup" && location.pathname !== "/login" ? <div className="w-full
+     text-white bg-mine-shaft-950 px-6 h-20 flex justify-between items-center   font-['poppins']  ">
         <div className="flex gap-1 items-center text-bright-sun-400 ">
             <IconAnchor className="h-8 w-8  " stroke={2.5} />
             <div className=" xs-mx:hidden text-3xl font-semibold "> JobHook</div>
@@ -65,7 +66,7 @@ const Header = () => {
 
 
             {user ? <ProfileMenu /> : <Link to="/login">
-                <Button variant="subtle" color="brightSun.4" >Login</Button>
+                <Button onClick={() => navigate("/login")} variant="subtle" color="brightSun.4" >Login</Button>
             </Link>}
 
             {user ? <NotiMenu /> : <></>}

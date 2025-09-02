@@ -22,6 +22,7 @@ const ProfileMenu = () => {
 
   const handleLogout = () =>{
     dispatch(removeUser());
+    window.location.reload();
   }
 
   return (
