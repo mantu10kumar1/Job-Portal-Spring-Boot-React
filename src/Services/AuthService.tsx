@@ -15,6 +15,7 @@ const navigateToLogin = (navigate:any)=>{
     localStorage.removeItem('token');
     removeUser();
     navigate("/login");
+    
 }
 
 export {loginUser};
