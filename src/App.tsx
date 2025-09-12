@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 import { createTheme, Divider, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 

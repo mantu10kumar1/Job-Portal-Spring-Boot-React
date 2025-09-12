@@ -33,7 +33,7 @@ function TalentCard(props: any) {
     console.log("profile in TalentCard : ", profile);
 
     const handleOffer = (status: string) => {
-        if (time === null ) {
+        if (!time === null ) {
             errorNotification("Error", "Please select date and time for interview");
             return;
         } else {
